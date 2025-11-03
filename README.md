@@ -1,4 +1,4 @@
-Collecting workspace information# 🛠️ Katalyx Flutter Tools (kataftools)
+# 🛠️ Katalyx Flutter Tools (kataftools)
 
 **Le package de référence pour vos applications Flutter chez Katalyx**
 
