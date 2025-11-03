@@ -61,7 +61,6 @@ Nous ne sommes pas une agence d'exécution : nous sommes votre partenaire strat�
 - ✅ Gestion des permissions
 - ✅ Constantes globales
 - ✅ Sérialiseurs personnalisés (dates)
-- ✅ Clipboard HTML (web)
 
 ### 🎭 Dialogs
 
@@ -102,9 +101,6 @@ lib/
     │   ├── confirmation_dialog.dart
     │   ├── size_limit_dialog.dart
     │   └── dialog_header.dart
-    ├── clipboard/                # Utilitaires clipboard
-    │   ├── html_clipboard.dart
-    │   └── html_clipboard_stub.dart
     ├── utils.dart                # Fonctions utilitaires
     ├── dates.dart                # Utilitaires de dates
     ├── constants.dart            # Constantes globales

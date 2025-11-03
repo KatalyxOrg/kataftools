@@ -32,6 +32,3 @@ export 'src/dialogs/dialog_header.dart';
 export 'src/dialogs/closable_dialog.dart';
 export 'src/dialogs/confirmation_dialog.dart';
 export 'src/dialogs/size_limit_dialog.dart';
-
-// Clipboard
-export 'src/clipboard/html_clipboard.dart';

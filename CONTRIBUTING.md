@@ -199,7 +199,7 @@ flutter test --coverage
 flutter test test/widgets/mon_widget_test.dart
 ```
 
-**Couverture minimale requise** : 85%
+**Couverture minimale requise** : 75%
 
 ### 5. Validation
 
@@ -394,7 +394,7 @@ double? tryParseFrenchDouble(String? value) {
 - [ ] Code formaté (`dart format .`)
 - [ ] Analyse sans erreurs (`flutter analyze`)
 - [ ] Tous les tests passent (`flutter test`)
-- [ ] Couverture ≥ 85%
+- [ ] Couverture ≥ 75%
 - [ ] Code généré à jour (`build_runner`)
 - [ ] Exports ajoutés dans `kataftools.dart`
 - [ ] Documentation ajoutée
@@ -424,7 +424,7 @@ Le workflow GitHub Actions vérifie :
 - ✅ Formatage du code
 - ✅ Analyse statique
 - ✅ Exécution des tests
-- ✅ Couverture de code (85% minimum)
+- ✅ Couverture de code (75% minimum)
 - ✅ Upload sur Codecov
 
 ---

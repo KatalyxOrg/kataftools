@@ -25,7 +25,6 @@ lib/
 │   ├── widgets/         # Reusable UI components
 │   ├── forms/           # Form-related widgets and utilities
 │   ├── dialogs/         # Dialog components
-│   ├── clipboard/       # Platform-specific utilities
 │   ├── utils.dart       # Utility functions
 │   ├── constants.dart   # App constants
 │   ├── permission.dart  # Permission management
@@ -82,7 +81,7 @@ abstract class PageInfo with _$PageInfo {
 
 - Group related utilities in separate files
 - Use extensions for enhancing existing types (`StringExtension` in utils.dart)
-- Keep platform-specific code isolated (see `html_clipboard.dart` pattern)
+- Keep platform-specific code isolated
 
 ### 5. Responsive Design
 
