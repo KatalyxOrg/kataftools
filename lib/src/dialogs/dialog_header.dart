@@ -23,17 +23,14 @@ class DialogHeader extends StatelessWidget {
           if (title != null) ...[
             // The title
             Expanded(
-              child: Text(title!, style: Theme.of(context).textTheme.headlineMedium),
-            ),
-            const SizedBox(
-              width: 8.0,
-            ),
-          ] else
-            const Expanded(
-              child: SizedBox(
-                width: 8.0,
+              child: Text(
+                title!,
+                style: Theme.of(context).textTheme.headlineMedium,
               ),
             ),
+            const SizedBox(width: 8.0),
+          ] else
+            const Expanded(child: SizedBox(width: 8.0)),
 
           // The closing button
           if (isClosable)
@@ -48,7 +45,7 @@ class DialogHeader extends StatelessWidget {
                   Navigator.of(context).pop();
                 }
               },
-            )
+            ),
         ],
       ),
     );

@@ -11,7 +11,10 @@ void main() {
             body: Builder(
               builder: (context) => ElevatedButton(
                 onPressed: () {
-                  showDialog(context: context, builder: (context) => SizeLimitDialog());
+                  showDialog(
+                    context: context,
+                    builder: (context) => SizeLimitDialog(),
+                  );
                 },
                 child: const Text('Show Dialog'),
               ),
@@ -33,7 +36,10 @@ void main() {
             body: Builder(
               builder: (context) => ElevatedButton(
                 onPressed: () {
-                  showDialog(context: context, builder: (context) => SizeLimitDialog());
+                  showDialog(
+                    context: context,
+                    builder: (context) => SizeLimitDialog(),
+                  );
                 },
                 child: const Text('Show Dialog'),
               ),
@@ -57,7 +63,8 @@ void main() {
                 onPressed: () {
                   showDialog(
                     context: context,
-                    builder: (context) => SizeLimitDialog(title: 'Custom Title'),
+                    builder: (context) =>
+                        SizeLimitDialog(title: 'Custom Title'),
                   );
                 },
                 child: const Text('Show Dialog'),
@@ -83,7 +90,8 @@ void main() {
                 onPressed: () {
                   showDialog(
                     context: context,
-                    builder: (context) => SizeLimitDialog(content: 'Custom content message'),
+                    builder: (context) =>
+                        SizeLimitDialog(content: 'Custom content message'),
                   );
                 },
                 child: const Text('Show Dialog'),
@@ -100,7 +108,9 @@ void main() {
       expect(find.text("L'image ne doit pas dépasser 5MB"), findsNothing);
     });
 
-    testWidgets('renders with both custom title and content', (WidgetTester tester) async {
+    testWidgets('renders with both custom title and content', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
@@ -109,7 +119,10 @@ void main() {
                 onPressed: () {
                   showDialog(
                     context: context,
-                    builder: (context) => SizeLimitDialog(title: 'File Too Large', content: 'The file must not exceed 10MB'),
+                    builder: (context) => SizeLimitDialog(
+                      title: 'File Too Large',
+                      content: 'The file must not exceed 10MB',
+                    ),
                   );
                 },
                 child: const Text('Show Dialog'),
@@ -133,7 +146,10 @@ void main() {
             body: Builder(
               builder: (context) => ElevatedButton(
                 onPressed: () {
-                  showDialog(context: context, builder: (context) => SizeLimitDialog());
+                  showDialog(
+                    context: context,
+                    builder: (context) => SizeLimitDialog(),
+                  );
                 },
                 child: const Text('Show Dialog'),
               ),
@@ -149,14 +165,19 @@ void main() {
       expect(find.widgetWithText(TextButton, 'Ok'), findsOneWidget);
     });
 
-    testWidgets('clicking "Ok" button dismisses dialog', (WidgetTester tester) async {
+    testWidgets('clicking "Ok" button dismisses dialog', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
             body: Builder(
               builder: (context) => ElevatedButton(
                 onPressed: () {
-                  showDialog(context: context, builder: (context) => SizeLimitDialog());
+                  showDialog(
+                    context: context,
+                    builder: (context) => SizeLimitDialog(),
+                  );
                 },
                 child: const Text('Show Dialog'),
               ),
@@ -183,7 +204,10 @@ void main() {
             body: Builder(
               builder: (context) => ElevatedButton(
                 onPressed: () {
-                  showDialog(context: context, builder: (context) => SizeLimitDialog());
+                  showDialog(
+                    context: context,
+                    builder: (context) => SizeLimitDialog(),
+                  );
                 },
                 child: const Text('Show Dialog'),
               ),
@@ -198,14 +222,19 @@ void main() {
       expect(find.byType(ClosableDialog), findsOneWidget);
     });
 
-    testWidgets('has close button (from ClosableDialog)', (WidgetTester tester) async {
+    testWidgets('has close button (from ClosableDialog)', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
             body: Builder(
               builder: (context) => ElevatedButton(
                 onPressed: () {
-                  showDialog(context: context, builder: (context) => SizeLimitDialog());
+                  showDialog(
+                    context: context,
+                    builder: (context) => SizeLimitDialog(),
+                  );
                 },
                 child: const Text('Show Dialog'),
               ),
@@ -220,14 +249,19 @@ void main() {
       expect(find.byIcon(Icons.close), findsOneWidget);
     });
 
-    testWidgets('clicking close button dismisses dialog', (WidgetTester tester) async {
+    testWidgets('clicking close button dismisses dialog', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
             body: Builder(
               builder: (context) => ElevatedButton(
                 onPressed: () {
-                  showDialog(context: context, builder: (context) => SizeLimitDialog());
+                  showDialog(
+                    context: context,
+                    builder: (context) => SizeLimitDialog(),
+                  );
                 },
                 child: const Text('Show Dialog'),
               ),
@@ -247,7 +281,9 @@ void main() {
       expect(find.byType(Dialog), findsNothing);
     });
 
-    testWidgets('content is displayed as Text widget', (WidgetTester tester) async {
+    testWidgets('content is displayed as Text widget', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
@@ -256,7 +292,8 @@ void main() {
                 onPressed: () {
                   showDialog(
                     context: context,
-                    builder: (context) => SizeLimitDialog(content: 'Test content'),
+                    builder: (context) =>
+                        SizeLimitDialog(content: 'Test content'),
                   );
                 },
                 child: const Text('Show Dialog'),
@@ -274,14 +311,19 @@ void main() {
       expect(tester.widget(contentText), isA<Text>());
     });
 
-    testWidgets('respects ClosableDialog structure', (WidgetTester tester) async {
+    testWidgets('respects ClosableDialog structure', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
             body: Builder(
               builder: (context) => ElevatedButton(
                 onPressed: () {
-                  showDialog(context: context, builder: (context) => SizeLimitDialog());
+                  showDialog(
+                    context: context,
+                    builder: (context) => SizeLimitDialog(),
+                  );
                 },
                 child: const Text('Show Dialog'),
               ),
@@ -312,7 +354,8 @@ void main() {
                 onPressed: () {
                   showDialog(
                     context: context,
-                    builder: (context) => SizeLimitDialog(title: 'Test Header Title'),
+                    builder: (context) =>
+                        SizeLimitDialog(title: 'Test Header Title'),
                   );
                 },
                 child: const Text('Show Dialog'),
@@ -325,11 +368,15 @@ void main() {
       await tester.tap(find.text('Show Dialog'));
       await tester.pumpAndSettle();
 
-      final dialogHeader = tester.widget<DialogHeader>(find.byType(DialogHeader));
+      final dialogHeader = tester.widget<DialogHeader>(
+        find.byType(DialogHeader),
+      );
       expect(dialogHeader.title, 'Test Header Title');
     });
 
-    testWidgets('uses document size limit example', (WidgetTester tester) async {
+    testWidgets('uses document size limit example', (
+      WidgetTester tester,
+    ) async {
       // Test that SizeLimitDialog can be used for documents with custom message
       await tester.pumpWidget(
         MaterialApp(
@@ -339,7 +386,10 @@ void main() {
                 onPressed: () {
                   showDialog(
                     context: context,
-                    builder: (context) => SizeLimitDialog(title: 'Document trop lourd', content: 'Le document ne doit pas dépasser 5MB'),
+                    builder: (context) => SizeLimitDialog(
+                      title: 'Document trop lourd',
+                      content: 'Le document ne doit pas dépasser 5MB',
+                    ),
                   );
                 },
                 child: const Text('Show Dialog'),

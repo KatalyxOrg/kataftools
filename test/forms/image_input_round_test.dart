@@ -22,21 +22,40 @@ void main() {
       ]);
     });
 
-    Widget buildImageInputRound({String networkImageUrl = testNetworkUrl, ImageFile? imageFile, Function(ImageFile?)? onChanged, double size = 92}) {
+    Widget buildImageInputRound({
+      String networkImageUrl = testNetworkUrl,
+      ImageFile? imageFile,
+      Function(ImageFile?)? onChanged,
+      double size = 92,
+    }) {
       return MaterialApp(
         home: Scaffold(
-          body: ImageInputRound(networkImageUrl: networkImageUrl, imageFile: imageFile, onChanged: onChanged, size: size),
+          body: ImageInputRound(
+            networkImageUrl: networkImageUrl,
+            imageFile: imageFile,
+            onChanged: onChanged,
+            size: size,
+          ),
         ),
       );
     }
 
     group('Circular Shape', () {
-      testWidgets('renders circular container with correct border radius', (tester) async {
+      testWidgets('renders circular container with correct border radius', (
+        tester,
+      ) async {
         const testSize = 92.0;
 
         await tester.pumpWidget(buildImageInputRound(size: testSize));
 
-        final container = tester.widget<Container>(find.descendant(of: find.byType(ImageInputRound), matching: find.byType(Container)).first);
+        final container = tester.widget<Container>(
+          find
+              .descendant(
+                of: find.byType(ImageInputRound),
+                matching: find.byType(Container),
+              )
+              .first,
+        );
 
         final decoration = container.decoration as BoxDecoration;
         expect(decoration.borderRadius, BorderRadius.circular(testSize / 2));
@@ -102,7 +121,14 @@ void main() {
 
         await tester.pumpWidget(buildImageInputRound(size: testSize));
 
-        final container = tester.widget<Container>(find.descendant(of: find.byType(ImageInputRound), matching: find.byType(Container)).first);
+        final container = tester.widget<Container>(
+          find
+              .descendant(
+                of: find.byType(ImageInputRound),
+                matching: find.byType(Container),
+              )
+              .first,
+        );
 
         expect(container.constraints!.maxHeight, testSize);
         expect(container.constraints!.maxWidth, testSize);
@@ -120,7 +146,12 @@ void main() {
       testWidgets('edit button is positioned at top right', (tester) async {
         await tester.pumpWidget(buildImageInputRound());
 
-        final positioned = tester.widget<Positioned>(find.ancestor(of: find.byType(IconButton), matching: find.byType(Positioned)));
+        final positioned = tester.widget<Positioned>(
+          find.ancestor(
+            of: find.byType(IconButton),
+            matching: find.byType(Positioned),
+          ),
+        );
 
         expect(positioned.top, 0);
         expect(positioned.right, 0);
@@ -128,7 +159,9 @@ void main() {
     });
 
     group('Image Display', () {
-      testWidgets('displays local image when imageFile is provided', (tester) async {
+      testWidgets('displays local image when imageFile is provided', (
+        tester,
+      ) async {
         final imageFile = ImageFile(name: 'test.png', bytes: testImageBytes);
 
         await tester.pumpWidget(buildImageInputRound(imageFile: imageFile));
@@ -140,28 +173,43 @@ void main() {
       });
 
       testWidgets('shows upload icon on network image error', (tester) async {
-        await tester.pumpWidget(buildImageInputRound(networkImageUrl: 'https://invalid-url.com/nonexistent.jpg'));
+        await tester.pumpWidget(
+          buildImageInputRound(
+            networkImageUrl: 'https://invalid-url.com/nonexistent.jpg',
+          ),
+        );
 
         await tester.pumpAndSettle();
 
         expect(find.byIcon(Icons.cloud_upload_outlined), findsOneWidget);
       });
 
-      testWidgets('upload icon size is proportional to widget size', (tester) async {
+      testWidgets('upload icon size is proportional to widget size', (
+        tester,
+      ) async {
         const testSize = 100.0;
 
-        await tester.pumpWidget(buildImageInputRound(size: testSize, networkImageUrl: 'invalid-url'));
+        await tester.pumpWidget(
+          buildImageInputRound(size: testSize, networkImageUrl: 'invalid-url'),
+        );
 
         await tester.pumpAndSettle();
 
-        final icon = tester.widget<Icon>(find.byIcon(Icons.cloud_upload_outlined));
+        final icon = tester.widget<Icon>(
+          find.byIcon(Icons.cloud_upload_outlined),
+        );
         expect(icon.size, testSize * 0.7);
       });
 
       testWidgets('prefers local image over network image', (tester) async {
         final imageFile = ImageFile(name: 'test.png', bytes: testImageBytes);
 
-        await tester.pumpWidget(buildImageInputRound(networkImageUrl: testNetworkUrl, imageFile: imageFile));
+        await tester.pumpWidget(
+          buildImageInputRound(
+            networkImageUrl: testNetworkUrl,
+            imageFile: imageFile,
+          ),
+        );
         await tester.pumpAndSettle();
 
         final image = tester.widget<Image>(find.byType(Image));
@@ -209,7 +257,10 @@ void main() {
         await tester.pumpWidget(buildImageInputRound(imageFile: imageFile));
         await tester.pumpAndSettle();
 
-        expect(find.byType(Positioned), findsNWidgets(2)); // One for image container, one for button
+        expect(
+          find.byType(Positioned),
+          findsNWidgets(2),
+        ); // One for image container, one for button
       });
     });
 
@@ -217,14 +268,26 @@ void main() {
       testWidgets('uses theme colors for container decoration', (tester) async {
         await tester.pumpWidget(
           MaterialApp(
-            theme: ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: Colors.purple)),
+            theme: ThemeData(
+              colorScheme: ColorScheme.fromSeed(seedColor: Colors.purple),
+            ),
             home: Scaffold(
-              body: ImageInputRound(networkImageUrl: testNetworkUrl, onChanged: (_) {}),
+              body: ImageInputRound(
+                networkImageUrl: testNetworkUrl,
+                onChanged: (_) {},
+              ),
             ),
           ),
         );
 
-        final container = tester.widget<Container>(find.descendant(of: find.byType(ImageInputRound), matching: find.byType(Container)).first);
+        final container = tester.widget<Container>(
+          find
+              .descendant(
+                of: find.byType(ImageInputRound),
+                matching: find.byType(Container),
+              )
+              .first,
+        );
 
         final decoration = container.decoration as BoxDecoration;
         expect(decoration.color, isNotNull);
@@ -247,12 +310,21 @@ void main() {
     });
 
     group('Comparison with ImageInput', () {
-      testWidgets('has circular shape unlike rectangular ImageInput', (tester) async {
+      testWidgets('has circular shape unlike rectangular ImageInput', (
+        tester,
+      ) async {
         const size = 100.0;
 
         await tester.pumpWidget(buildImageInputRound(size: size));
 
-        final container = tester.widget<Container>(find.descendant(of: find.byType(ImageInputRound), matching: find.byType(Container)).first);
+        final container = tester.widget<Container>(
+          find
+              .descendant(
+                of: find.byType(ImageInputRound),
+                matching: find.byType(Container),
+              )
+              .first,
+        );
 
         final decoration = container.decoration as BoxDecoration;
         // Circular: radius is half the size
@@ -266,10 +338,17 @@ void main() {
         expect(find.byType(FilledButton), findsNothing);
       });
 
-      testWidgets('button positioned at top-right instead of bottom', (tester) async {
+      testWidgets('button positioned at top-right instead of bottom', (
+        tester,
+      ) async {
         await tester.pumpWidget(buildImageInputRound());
 
-        final positioned = tester.widget<Positioned>(find.ancestor(of: find.byType(IconButton), matching: find.byType(Positioned)));
+        final positioned = tester.widget<Positioned>(
+          find.ancestor(
+            of: find.byType(IconButton),
+            matching: find.byType(Positioned),
+          ),
+        );
 
         expect(positioned.top, 0);
         expect(positioned.right, 0);
@@ -282,7 +361,14 @@ void main() {
       testWidgets('has border with theme color', (tester) async {
         await tester.pumpWidget(buildImageInputRound());
 
-        final container = tester.widget<Container>(find.descendant(of: find.byType(ImageInputRound), matching: find.byType(Container)).first);
+        final container = tester.widget<Container>(
+          find
+              .descendant(
+                of: find.byType(ImageInputRound),
+                matching: find.byType(Container),
+              )
+              .first,
+        );
 
         final decoration = container.decoration as BoxDecoration;
         expect(decoration.border, isNotNull);
@@ -291,7 +377,14 @@ void main() {
       testWidgets('has surface background color from theme', (tester) async {
         await tester.pumpWidget(buildImageInputRound());
 
-        final container = tester.widget<Container>(find.descendant(of: find.byType(ImageInputRound), matching: find.byType(Container)).first);
+        final container = tester.widget<Container>(
+          find
+              .descendant(
+                of: find.byType(ImageInputRound),
+                matching: find.byType(Container),
+              )
+              .first,
+        );
 
         final decoration = container.decoration as BoxDecoration;
         expect(decoration.color, isNotNull);

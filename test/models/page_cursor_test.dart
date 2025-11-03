@@ -31,7 +31,10 @@ void main() {
   group('PageCursor<T>', () {
     group('Construction', () {
       test('creates with simple type (String)', () {
-        final cursor = PageCursor<String>(cursor: 'cursor123', node: 'nodeValue');
+        final cursor = PageCursor<String>(
+          cursor: 'cursor123',
+          node: 'nodeValue',
+        );
 
         expect(cursor.cursor, 'cursor123');
         expect(cursor.node, 'nodeValue');
@@ -46,7 +49,10 @@ void main() {
 
       test('creates with complex custom type', () {
         final testNode = TestNode(id: 1, name: 'Test');
-        final cursor = PageCursor<TestNode>(cursor: 'cursor789', node: testNode);
+        final cursor = PageCursor<TestNode>(
+          cursor: 'cursor789',
+          node: testNode,
+        );
 
         expect(cursor.cursor, 'cursor789');
         expect(cursor.node, testNode);
@@ -56,7 +62,10 @@ void main() {
 
       test('creates with Map type', () {
         final nodeData = {'key': 'value', 'count': 10};
-        final cursor = PageCursor<Map<String, dynamic>>(cursor: 'cursorMap', node: nodeData);
+        final cursor = PageCursor<Map<String, dynamic>>(
+          cursor: 'cursorMap',
+          node: nodeData,
+        );
 
         expect(cursor.cursor, 'cursorMap');
         expect(cursor.node, nodeData);
@@ -64,7 +73,10 @@ void main() {
 
       test('creates with List type', () {
         final nodeList = [1, 2, 3, 4, 5];
-        final cursor = PageCursor<List<int>>(cursor: 'cursorList', node: nodeList);
+        final cursor = PageCursor<List<int>>(
+          cursor: 'cursorList',
+          node: nodeList,
+        );
 
         expect(cursor.cursor, 'cursorList');
         expect(cursor.node, nodeList);
@@ -146,7 +158,10 @@ void main() {
       });
 
       test('maintains type safety with Map', () {
-        final cursor = PageCursor<Map<String, int>>(cursor: 'c4', node: {'a': 1, 'b': 2});
+        final cursor = PageCursor<Map<String, int>>(
+          cursor: 'c4',
+          node: {'a': 1, 'b': 2},
+        );
 
         expect(cursor.node, isA<Map<String, int>>());
         expect(cursor.node['a'], 1);
@@ -157,7 +172,10 @@ void main() {
       test('fromJson with String type and custom fromJsonT', () {
         final json = {'cursor': 'cursor123', 'node': 'stringValue'};
 
-        final cursor = PageCursor<String>.fromJson(json, (obj) => obj as String);
+        final cursor = PageCursor<String>.fromJson(
+          json,
+          (obj) => obj as String,
+        );
 
         expect(cursor.cursor, 'cursor123');
         expect(cursor.node, 'stringValue');
@@ -178,7 +196,10 @@ void main() {
           'node': {'id': 10, 'name': 'TestNode'},
         };
 
-        final cursor = PageCursor<TestNode>.fromJson(json, (obj) => TestNode.fromJson(obj as Map<String, Object?>));
+        final cursor = PageCursor<TestNode>.fromJson(
+          json,
+          (obj) => TestNode.fromJson(obj as Map<String, Object?>),
+        );
 
         expect(cursor.cursor, 'cursor789');
         expect(cursor.node.id, 10);
@@ -186,7 +207,10 @@ void main() {
       });
 
       test('toJson with String type', () {
-        final cursor = PageCursor<String>(cursor: 'cursor123', node: 'stringValue');
+        final cursor = PageCursor<String>(
+          cursor: 'cursor123',
+          node: 'stringValue',
+        );
 
         final json = cursor.toJson((node) => node);
 
@@ -205,7 +229,10 @@ void main() {
 
       test('toJson with custom type and conversion function', () {
         final testNode = TestNode(id: 10, name: 'TestNode');
-        final cursor = PageCursor<TestNode>(cursor: 'cursor789', node: testNode);
+        final cursor = PageCursor<TestNode>(
+          cursor: 'cursor789',
+          node: testNode,
+        );
 
         final json = cursor.toJson((node) => node.toJson());
 
@@ -219,7 +246,10 @@ void main() {
         final original = PageCursor<String>(cursor: 'c1', node: 'value1');
 
         final json = original.toJson((node) => node);
-        final restored = PageCursor<String>.fromJson(json, (obj) => obj as String);
+        final restored = PageCursor<String>.fromJson(
+          json,
+          (obj) => obj as String,
+        );
 
         expect(restored.cursor, original.cursor);
         expect(restored.node, original.node);
@@ -240,7 +270,10 @@ void main() {
         final original = PageCursor<TestNode>(cursor: 'c3', node: originalNode);
 
         final json = original.toJson((node) => node.toJson());
-        final restored = PageCursor<TestNode>.fromJson(json, (obj) => TestNode.fromJson(obj as Map<String, Object?>));
+        final restored = PageCursor<TestNode>.fromJson(
+          json,
+          (obj) => TestNode.fromJson(obj as Map<String, Object?>),
+        );
 
         expect(restored.cursor, original.cursor);
         expect(restored.node, original.node);
@@ -305,7 +338,10 @@ void main() {
 
     group('toString', () {
       test('provides readable string representation with String', () {
-        final cursor = PageCursor<String>(cursor: 'cursor123', node: 'nodeValue');
+        final cursor = PageCursor<String>(
+          cursor: 'cursor123',
+          node: 'nodeValue',
+        );
 
         final str = cursor.toString();
 
@@ -328,7 +364,10 @@ void main() {
 
       test('provides readable string representation with custom type', () {
         final testNode = TestNode(id: 1, name: 'Test');
-        final cursor = PageCursor<TestNode>(cursor: 'cursor789', node: testNode);
+        final cursor = PageCursor<TestNode>(
+          cursor: 'cursor789',
+          node: testNode,
+        );
 
         final str = cursor.toString();
 
@@ -354,7 +393,10 @@ void main() {
       });
 
       test('handles special characters in cursor', () {
-        final cursor = PageCursor<String>(cursor: 'cursor-!@#\$%^&*()', node: 'value');
+        final cursor = PageCursor<String>(
+          cursor: 'cursor-!@#\$%^&*()',
+          node: 'value',
+        );
 
         expect(cursor.cursor, 'cursor-!@#\$%^&*()');
       });
@@ -374,7 +416,10 @@ void main() {
           },
         };
 
-        final cursor = PageCursor<Map<String, dynamic>>(cursor: 'complexCursor', node: complexNode);
+        final cursor = PageCursor<Map<String, dynamic>>(
+          cursor: 'complexCursor',
+          node: complexNode,
+        );
 
         expect(cursor.node['data']['nested'], isA<List<dynamic>>());
         expect(cursor.node['data']['deep']['level'], 3);

@@ -9,7 +9,12 @@ class ErrorSnackbar {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         backgroundColor: Theme.of(context).colorScheme.errorContainer,
-        content: Text(message, style: TextStyle(color: Theme.of(context).colorScheme.onErrorContainer)),
+        content: Text(
+          message,
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.onErrorContainer,
+          ),
+        ),
       ),
     );
   }

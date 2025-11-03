@@ -5,13 +5,18 @@ import 'package:kataftools/kataftools.dart';
 
 void main() {
   group('MonthSelector', () {
-    testWidgets('renders with initial selected month', (WidgetTester tester) async {
+    testWidgets('renders with initial selected month', (
+      WidgetTester tester,
+    ) async {
       final selectedMonth = DateTime(2025, 10);
 
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: MonthSelector(selectedMonth: selectedMonth, onMonthSelected: (_) {}),
+            body: MonthSelector(
+              selectedMonth: selectedMonth,
+              onMonthSelected: (_) {},
+            ),
           ),
         ),
       );
@@ -26,7 +31,10 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: MonthSelector(selectedMonth: selectedMonth, onMonthSelected: (_) {}),
+            body: MonthSelector(
+              selectedMonth: selectedMonth,
+              onMonthSelected: (_) {},
+            ),
           ),
         ),
       );
@@ -41,16 +49,24 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: MonthSelector(selectedMonth: selectedMonth, onMonthSelected: (_) {}),
+            body: MonthSelector(
+              selectedMonth: selectedMonth,
+              onMonthSelected: (_) {},
+            ),
           ),
         ),
       );
 
-      final nextButton = find.widgetWithIcon(IconButton, Icons.arrow_forward_ios);
+      final nextButton = find.widgetWithIcon(
+        IconButton,
+        Icons.arrow_forward_ios,
+      );
       expect(nextButton, findsOneWidget);
     });
 
-    testWidgets('previous button decrements month', (WidgetTester tester) async {
+    testWidgets('previous button decrements month', (
+      WidgetTester tester,
+    ) async {
       DateTime? newMonth;
       final selectedMonth = DateTime(2025, 10);
 
@@ -75,7 +91,9 @@ void main() {
       expect(newMonth!.month, 9);
     });
 
-    testWidgets('next button increments month when not current month', (WidgetTester tester) async {
+    testWidgets('next button increments month when not current month', (
+      WidgetTester tester,
+    ) async {
       DateTime? newMonth;
       // Use a past month (not current)
       final selectedMonth = DateTime(2025, 9);
@@ -93,7 +111,9 @@ void main() {
         ),
       );
 
-      await tester.tap(find.widgetWithIcon(IconButton, Icons.arrow_forward_ios));
+      await tester.tap(
+        find.widgetWithIcon(IconButton, Icons.arrow_forward_ios),
+      );
       await tester.pump();
 
       expect(newMonth, isNotNull);
@@ -101,41 +121,57 @@ void main() {
       expect(newMonth!.month, 10);
     });
 
-    testWidgets('next button is disabled for current month', (WidgetTester tester) async {
+    testWidgets('next button is disabled for current month', (
+      WidgetTester tester,
+    ) async {
       final now = DateTime.now();
       final currentMonth = DateTime(now.year, now.month);
 
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: MonthSelector(selectedMonth: currentMonth, onMonthSelected: (_) {}),
+            body: MonthSelector(
+              selectedMonth: currentMonth,
+              onMonthSelected: (_) {},
+            ),
           ),
         ),
       );
 
-      final nextButton = tester.widget<IconButton>(find.widgetWithIcon(IconButton, Icons.arrow_forward_ios));
+      final nextButton = tester.widget<IconButton>(
+        find.widgetWithIcon(IconButton, Icons.arrow_forward_ios),
+      );
 
       expect(nextButton.onPressed, isNull);
     });
 
-    testWidgets('next button is enabled for past months', (WidgetTester tester) async {
+    testWidgets('next button is enabled for past months', (
+      WidgetTester tester,
+    ) async {
       final now = DateTime.now();
       final pastMonth = DateTime(now.year, now.month - 1);
 
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: MonthSelector(selectedMonth: pastMonth, onMonthSelected: (_) {}),
+            body: MonthSelector(
+              selectedMonth: pastMonth,
+              onMonthSelected: (_) {},
+            ),
           ),
         ),
       );
 
-      final nextButton = tester.widget<IconButton>(find.widgetWithIcon(IconButton, Icons.arrow_forward_ios));
+      final nextButton = tester.widget<IconButton>(
+        find.widgetWithIcon(IconButton, Icons.arrow_forward_ios),
+      );
 
       expect(nextButton.onPressed, isNotNull);
     });
 
-    testWidgets('handles year transition with previous button (Jan to Dec)', (WidgetTester tester) async {
+    testWidgets('handles year transition with previous button (Jan to Dec)', (
+      WidgetTester tester,
+    ) async {
       DateTime? newMonth;
       final selectedMonth = DateTime(2025, 1);
 
@@ -160,7 +196,9 @@ void main() {
       expect(newMonth!.month, 12);
     });
 
-    testWidgets('handles year transition with next button (Dec to Jan)', (WidgetTester tester) async {
+    testWidgets('handles year transition with next button (Dec to Jan)', (
+      WidgetTester tester,
+    ) async {
       DateTime? newMonth;
       final selectedMonth = DateTime(2024, 12);
 
@@ -177,7 +215,9 @@ void main() {
         ),
       );
 
-      await tester.tap(find.widgetWithIcon(IconButton, Icons.arrow_forward_ios));
+      await tester.tap(
+        find.widgetWithIcon(IconButton, Icons.arrow_forward_ios),
+      );
       await tester.pump();
 
       expect(newMonth, isNotNull);
@@ -192,7 +232,10 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: MonthSelector(selectedMonth: pastMonth, onMonthSelected: (_) {}),
+            body: MonthSelector(
+              selectedMonth: pastMonth,
+              onMonthSelected: (_) {},
+            ),
           ),
         ),
       );
@@ -209,13 +252,18 @@ void main() {
       expect(dropdownItems, findsWidgets);
     });
 
-    testWidgets('dropdown displays month in MMMM yyyy format', (WidgetTester tester) async {
+    testWidgets('dropdown displays month in MMMM yyyy format', (
+      WidgetTester tester,
+    ) async {
       final selectedMonth = DateTime(2025, 10);
 
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: MonthSelector(selectedMonth: selectedMonth, onMonthSelected: (_) {}),
+            body: MonthSelector(
+              selectedMonth: selectedMonth,
+              onMonthSelected: (_) {},
+            ),
           ),
         ),
       );
@@ -224,7 +272,9 @@ void main() {
       expect(find.text('October 2025'), findsOneWidget);
     });
 
-    testWidgets('dropdown selection triggers onMonthSelected', (WidgetTester tester) async {
+    testWidgets('dropdown selection triggers onMonthSelected', (
+      WidgetTester tester,
+    ) async {
       DateTime? newMonth;
       final now = DateTime.now();
       final selectedMonth = DateTime(now.year, now.month - 2);
@@ -247,7 +297,10 @@ void main() {
       await tester.pumpAndSettle();
 
       // Find and tap a different month option
-      final previousMonth = DateTime(selectedMonth.year, selectedMonth.month - 1);
+      final previousMonth = DateTime(
+        selectedMonth.year,
+        selectedMonth.month - 1,
+      );
       final formattedPrevMonth = DateFormat("MMMM yyyy").format(previousMonth);
 
       if (find.text(formattedPrevMonth).evaluate().isNotEmpty) {
@@ -265,20 +318,35 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: MonthSelector(selectedMonth: selectedMonth, onMonthSelected: (_) {}),
+            body: MonthSelector(
+              selectedMonth: selectedMonth,
+              onMonthSelected: (_) {},
+            ),
           ),
         ),
       );
 
-      final backIcon = tester.widget<Icon>(find.descendant(of: find.widgetWithIcon(IconButton, Icons.arrow_back_ios), matching: find.byType(Icon)));
+      final backIcon = tester.widget<Icon>(
+        find.descendant(
+          of: find.widgetWithIcon(IconButton, Icons.arrow_back_ios),
+          matching: find.byType(Icon),
+        ),
+      );
 
-      final forwardIcon = tester.widget<Icon>(find.descendant(of: find.widgetWithIcon(IconButton, Icons.arrow_forward_ios), matching: find.byType(Icon)));
+      final forwardIcon = tester.widget<Icon>(
+        find.descendant(
+          of: find.widgetWithIcon(IconButton, Icons.arrow_forward_ios),
+          matching: find.byType(Icon),
+        ),
+      );
 
       expect(backIcon.size, 12);
       expect(forwardIcon.size, 12);
     });
 
-    testWidgets('handles multiple consecutive previous clicks', (WidgetTester tester) async {
+    testWidgets('handles multiple consecutive previous clicks', (
+      WidgetTester tester,
+    ) async {
       final months = <DateTime>[];
       DateTime selectedMonth = DateTime(2025, 10);
 
@@ -320,12 +388,21 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: MonthSelector(selectedMonth: selectedMonth, onMonthSelected: (_) {}),
+            body: MonthSelector(
+              selectedMonth: selectedMonth,
+              onMonthSelected: (_) {},
+            ),
           ),
         ),
       );
 
-      expect(find.ancestor(of: find.byType(DropdownButtonFormField<DateTime>), matching: find.byType(Flexible)), findsOneWidget);
+      expect(
+        find.ancestor(
+          of: find.byType(DropdownButtonFormField<DateTime>),
+          matching: find.byType(Flexible),
+        ),
+        findsOneWidget,
+      );
     });
 
     testWidgets('widget is laid out in a Row', (WidgetTester tester) async {
@@ -334,22 +411,36 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: MonthSelector(selectedMonth: selectedMonth, onMonthSelected: (_) {}),
+            body: MonthSelector(
+              selectedMonth: selectedMonth,
+              onMonthSelected: (_) {},
+            ),
           ),
         ),
       );
 
       // Find the Row that is a direct child of MonthSelector
-      expect(find.descendant(of: find.byType(MonthSelector), matching: find.byType(Row)), findsWidgets);
+      expect(
+        find.descendant(
+          of: find.byType(MonthSelector),
+          matching: find.byType(Row),
+        ),
+        findsWidgets,
+      );
     });
 
-    testWidgets('handles null onChanged in dropdown gracefully', (WidgetTester tester) async {
+    testWidgets('handles null onChanged in dropdown gracefully', (
+      WidgetTester tester,
+    ) async {
       final selectedMonth = DateTime(2025, 10);
 
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: MonthSelector(selectedMonth: selectedMonth, onMonthSelected: (_) {}),
+            body: MonthSelector(
+              selectedMonth: selectedMonth,
+              onMonthSelected: (_) {},
+            ),
           ),
         ),
       );

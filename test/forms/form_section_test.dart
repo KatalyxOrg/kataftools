@@ -4,12 +4,27 @@ import 'package:kataftools/kataftools.dart';
 
 void main() {
   group('FormSection', () {
-    Widget buildFormSection({String? title, List<Widget>? children, List<Widget> actions = const [], bool isSmall = false, double? screenWidth}) {
+    Widget buildFormSection({
+      String? title,
+      List<Widget>? children,
+      List<Widget> actions = const [],
+      bool isSmall = false,
+      double? screenWidth,
+    }) {
       Widget formSection = FormSection(
         title: title,
         actions: actions,
         isSmall: isSmall,
-        children: children ?? [const TextField(decoration: InputDecoration(labelText: 'Field 1')), const TextField(decoration: InputDecoration(labelText: 'Field 2'))],
+        children:
+            children ??
+            [
+              const TextField(
+                decoration: InputDecoration(labelText: 'Field 1'),
+              ),
+              const TextField(
+                decoration: InputDecoration(labelText: 'Field 2'),
+              ),
+            ],
       );
 
       if (screenWidth != null) {
@@ -47,8 +62,12 @@ void main() {
         expect(find.byType(FormSection), findsOneWidget);
       });
 
-      testWidgets('title uses correct style when isSmall=false', (tester) async {
-        await tester.pumpWidget(buildFormSection(title: 'Large Title', isSmall: false));
+      testWidgets('title uses correct style when isSmall=false', (
+        tester,
+      ) async {
+        await tester.pumpWidget(
+          buildFormSection(title: 'Large Title', isSmall: false),
+        );
 
         final text = tester.widget<Text>(find.text('Large Title'));
         expect(text.style, isNotNull);
@@ -56,7 +75,9 @@ void main() {
       });
 
       testWidgets('title uses correct style when isSmall=true', (tester) async {
-        await tester.pumpWidget(buildFormSection(title: 'Small Title', isSmall: true));
+        await tester.pumpWidget(
+          buildFormSection(title: 'Small Title', isSmall: true),
+        );
 
         final text = tester.widget<Text>(find.text('Small Title'));
         expect(text.style!.fontWeight, FontWeight.bold);
@@ -78,7 +99,9 @@ void main() {
       });
 
       testWidgets('spacing below title when isSmall=false', (tester) async {
-        await tester.pumpWidget(buildFormSection(title: 'Test', isSmall: false));
+        await tester.pumpWidget(
+          buildFormSection(title: 'Test', isSmall: false),
+        );
 
         // Find SizedBox with height 24
         final sizedBoxes = tester.widgetList<SizedBox>(find.byType(SizedBox));
@@ -100,10 +123,18 @@ void main() {
           buildFormSection(
             screenWidth: 800,
             children: [
-              const TextField(decoration: InputDecoration(labelText: 'Field 1')),
-              const TextField(decoration: InputDecoration(labelText: 'Field 2')),
-              const TextField(decoration: InputDecoration(labelText: 'Field 3')),
-              const TextField(decoration: InputDecoration(labelText: 'Field 4')),
+              const TextField(
+                decoration: InputDecoration(labelText: 'Field 1'),
+              ),
+              const TextField(
+                decoration: InputDecoration(labelText: 'Field 2'),
+              ),
+              const TextField(
+                decoration: InputDecoration(labelText: 'Field 3'),
+              ),
+              const TextField(
+                decoration: InputDecoration(labelText: 'Field 4'),
+              ),
             ],
           ),
         );
@@ -114,16 +145,25 @@ void main() {
         expect(find.byType(Flex), findsWidgets);
 
         final flexWidgets = tester.widgetList<Flex>(find.byType(Flex));
-        expect(flexWidgets.any((flex) => flex.direction == Axis.horizontal), isTrue);
+        expect(
+          flexWidgets.any((flex) => flex.direction == Axis.horizontal),
+          isTrue,
+        );
       });
 
-      testWidgets('uses horizontal spacing of 20 between columns', (tester) async {
+      testWidgets('uses horizontal spacing of 20 between columns', (
+        tester,
+      ) async {
         await tester.pumpWidget(
           buildFormSection(
             screenWidth: 800,
             children: [
-              const TextField(decoration: InputDecoration(labelText: 'Field 1')),
-              const TextField(decoration: InputDecoration(labelText: 'Field 2')),
+              const TextField(
+                decoration: InputDecoration(labelText: 'Field 1'),
+              ),
+              const TextField(
+                decoration: InputDecoration(labelText: 'Field 2'),
+              ),
             ],
           ),
         );
@@ -142,8 +182,12 @@ void main() {
           buildFormSection(
             screenWidth: 600,
             children: [
-              const TextField(decoration: InputDecoration(labelText: 'Field 1')),
-              const TextField(decoration: InputDecoration(labelText: 'Field 2')),
+              const TextField(
+                decoration: InputDecoration(labelText: 'Field 1'),
+              ),
+              const TextField(
+                decoration: InputDecoration(labelText: 'Field 2'),
+              ),
             ],
           ),
         );
@@ -152,7 +196,10 @@ void main() {
 
         // Should have horizontal Flex widgets
         final flexWidgets = tester.widgetList<Flex>(find.byType(Flex));
-        expect(flexWidgets.any((flex) => flex.direction == Axis.horizontal), isTrue);
+        expect(
+          flexWidgets.any((flex) => flex.direction == Axis.horizontal),
+          isTrue,
+        );
       });
 
       testWidgets('tablet layout uses horizontal flex', (tester) async {
@@ -160,8 +207,12 @@ void main() {
           buildFormSection(
             screenWidth: 500,
             children: [
-              const TextField(decoration: InputDecoration(labelText: 'Field 1')),
-              const TextField(decoration: InputDecoration(labelText: 'Field 2')),
+              const TextField(
+                decoration: InputDecoration(labelText: 'Field 1'),
+              ),
+              const TextField(
+                decoration: InputDecoration(labelText: 'Field 2'),
+              ),
             ],
           ),
         );
@@ -178,8 +229,12 @@ void main() {
           buildFormSection(
             screenWidth: 400,
             children: [
-              const TextField(decoration: InputDecoration(labelText: 'Field 1')),
-              const TextField(decoration: InputDecoration(labelText: 'Field 2')),
+              const TextField(
+                decoration: InputDecoration(labelText: 'Field 1'),
+              ),
+              const TextField(
+                decoration: InputDecoration(labelText: 'Field 2'),
+              ),
             ],
           ),
         );
@@ -188,7 +243,10 @@ void main() {
 
         // Should have vertical Flex widgets for 1-column layout
         final flexWidgets = tester.widgetList<Flex>(find.byType(Flex));
-        expect(flexWidgets.any((flex) => flex.direction == Axis.vertical), isTrue);
+        expect(
+          flexWidgets.any((flex) => flex.direction == Axis.vertical),
+          isTrue,
+        );
       });
 
       testWidgets('mobile layout uses vertical spacing of 20', (tester) async {
@@ -196,8 +254,12 @@ void main() {
           buildFormSection(
             screenWidth: 400,
             children: [
-              const TextField(decoration: InputDecoration(labelText: 'Field 1')),
-              const TextField(decoration: InputDecoration(labelText: 'Field 2')),
+              const TextField(
+                decoration: InputDecoration(labelText: 'Field 1'),
+              ),
+              const TextField(
+                decoration: InputDecoration(labelText: 'Field 2'),
+              ),
             ],
           ),
         );
@@ -216,9 +278,13 @@ void main() {
           buildFormSection(
             screenWidth: 800,
             children: [
-              const TextField(decoration: InputDecoration(labelText: 'Field 1')),
+              const TextField(
+                decoration: InputDecoration(labelText: 'Field 1'),
+              ),
               FormLargeField(
-                child: const TextField(decoration: InputDecoration(labelText: 'Large Field')),
+                child: const TextField(
+                  decoration: InputDecoration(labelText: 'Large Field'),
+                ),
               ),
             ],
           ),
@@ -234,9 +300,13 @@ void main() {
           buildFormSection(
             screenWidth: 600,
             children: [
-              const TextField(decoration: InputDecoration(labelText: 'Field 1')),
+              const TextField(
+                decoration: InputDecoration(labelText: 'Field 1'),
+              ),
               FormLargeField(
-                child: const TextField(decoration: InputDecoration(labelText: 'Large Field')),
+                child: const TextField(
+                  decoration: InputDecoration(labelText: 'Large Field'),
+                ),
               ),
             ],
           ),
@@ -252,9 +322,13 @@ void main() {
           buildFormSection(
             screenWidth: 400,
             children: [
-              const TextField(decoration: InputDecoration(labelText: 'Field 1')),
+              const TextField(
+                decoration: InputDecoration(labelText: 'Field 1'),
+              ),
               FormLargeField(
-                child: const TextField(decoration: InputDecoration(labelText: 'Large Field')),
+                child: const TextField(
+                  decoration: InputDecoration(labelText: 'Large Field'),
+                ),
               ),
             ],
           ),
@@ -265,28 +339,39 @@ void main() {
         expect(find.text('Large Field'), findsOneWidget);
       });
 
-      testWidgets('mixed regular and FormLargeField children layout correctly', (tester) async {
-        await tester.pumpWidget(
-          buildFormSection(
-            screenWidth: 800,
-            children: [
-              const TextField(decoration: InputDecoration(labelText: 'Field 1')),
-              const TextField(decoration: InputDecoration(labelText: 'Field 2')),
-              FormLargeField(
-                child: const TextField(decoration: InputDecoration(labelText: 'Large Field')),
-              ),
-              const TextField(decoration: InputDecoration(labelText: 'Field 3')),
-            ],
-          ),
-        );
+      testWidgets(
+        'mixed regular and FormLargeField children layout correctly',
+        (tester) async {
+          await tester.pumpWidget(
+            buildFormSection(
+              screenWidth: 800,
+              children: [
+                const TextField(
+                  decoration: InputDecoration(labelText: 'Field 1'),
+                ),
+                const TextField(
+                  decoration: InputDecoration(labelText: 'Field 2'),
+                ),
+                FormLargeField(
+                  child: const TextField(
+                    decoration: InputDecoration(labelText: 'Large Field'),
+                  ),
+                ),
+                const TextField(
+                  decoration: InputDecoration(labelText: 'Field 3'),
+                ),
+              ],
+            ),
+          );
 
-        await tester.pumpAndSettle();
+          await tester.pumpAndSettle();
 
-        expect(find.text('Field 1'), findsOneWidget);
-        expect(find.text('Field 2'), findsOneWidget);
-        expect(find.text('Large Field'), findsOneWidget);
-        expect(find.text('Field 3'), findsOneWidget);
-      });
+          expect(find.text('Field 1'), findsOneWidget);
+          expect(find.text('Field 2'), findsOneWidget);
+          expect(find.text('Large Field'), findsOneWidget);
+          expect(find.text('Field 3'), findsOneWidget);
+        },
+      );
     });
 
     group('Odd Number of Children', () {
@@ -295,9 +380,15 @@ void main() {
           buildFormSection(
             screenWidth: 800,
             children: [
-              const TextField(decoration: InputDecoration(labelText: 'Field 1')),
-              const TextField(decoration: InputDecoration(labelText: 'Field 2')),
-              const TextField(decoration: InputDecoration(labelText: 'Field 3')),
+              const TextField(
+                decoration: InputDecoration(labelText: 'Field 1'),
+              ),
+              const TextField(
+                decoration: InputDecoration(labelText: 'Field 2'),
+              ),
+              const TextField(
+                decoration: InputDecoration(labelText: 'Field 3'),
+              ),
             ],
           ),
         );
@@ -315,10 +406,18 @@ void main() {
           buildFormSection(
             screenWidth: 800,
             children: [
-              const TextField(decoration: InputDecoration(labelText: 'Field 1')),
-              const TextField(decoration: InputDecoration(labelText: 'Field 2')),
-              const TextField(decoration: InputDecoration(labelText: 'Field 3')),
-              const TextField(decoration: InputDecoration(labelText: 'Field 4')),
+              const TextField(
+                decoration: InputDecoration(labelText: 'Field 1'),
+              ),
+              const TextField(
+                decoration: InputDecoration(labelText: 'Field 2'),
+              ),
+              const TextField(
+                decoration: InputDecoration(labelText: 'Field 3'),
+              ),
+              const TextField(
+                decoration: InputDecoration(labelText: 'Field 4'),
+              ),
             ],
           ),
         );
@@ -337,10 +436,18 @@ void main() {
         await tester.pumpWidget(
           buildFormSection(
             children: [
-              const TextField(decoration: InputDecoration(labelText: 'Field 1')),
-              const TextField(decoration: InputDecoration(labelText: 'Field 2')),
-              const TextField(decoration: InputDecoration(labelText: 'Field 3')),
-              const TextField(decoration: InputDecoration(labelText: 'Field 4')),
+              const TextField(
+                decoration: InputDecoration(labelText: 'Field 1'),
+              ),
+              const TextField(
+                decoration: InputDecoration(labelText: 'Field 2'),
+              ),
+              const TextField(
+                decoration: InputDecoration(labelText: 'Field 3'),
+              ),
+              const TextField(
+                decoration: InputDecoration(labelText: 'Field 4'),
+              ),
             ],
           ),
         );
@@ -373,7 +480,14 @@ void main() {
       testWidgets('main column has correct properties', (tester) async {
         await tester.pumpWidget(buildFormSection(title: 'Test'));
 
-        final column = tester.widget<Column>(find.descendant(of: find.byType(FormSection), matching: find.byType(Column)).first);
+        final column = tester.widget<Column>(
+          find
+              .descendant(
+                of: find.byType(FormSection),
+                matching: find.byType(Column),
+              )
+              .first,
+        );
 
         expect(column.mainAxisSize, MainAxisSize.min);
         expect(column.crossAxisAlignment, CrossAxisAlignment.stretch);
@@ -383,7 +497,11 @@ void main() {
         await tester.pumpWidget(
           buildFormSection(
             title: 'Test',
-            children: [const TextField(decoration: InputDecoration(labelText: 'Field 1'))],
+            children: [
+              const TextField(
+                decoration: InputDecoration(labelText: 'Field 1'),
+              ),
+            ],
           ),
         );
 
@@ -403,7 +521,11 @@ void main() {
       testWidgets('handles single child', (tester) async {
         await tester.pumpWidget(
           buildFormSection(
-            children: [const TextField(decoration: InputDecoration(labelText: 'Only Field'))],
+            children: [
+              const TextField(
+                decoration: InputDecoration(labelText: 'Only Field'),
+              ),
+            ],
           ),
         );
 
@@ -414,7 +536,12 @@ void main() {
         await tester.pumpWidget(
           buildFormSection(
             screenWidth: 800,
-            children: List.generate(10, (index) => TextField(decoration: InputDecoration(labelText: 'Field ${index + 1}'))),
+            children: List.generate(
+              10,
+              (index) => TextField(
+                decoration: InputDecoration(labelText: 'Field ${index + 1}'),
+              ),
+            ),
           ),
         );
 
@@ -432,8 +559,12 @@ void main() {
           buildFormSection(
             screenWidth: 400,
             children: [
-              const TextField(decoration: InputDecoration(labelText: 'Field 1')),
-              const TextField(decoration: InputDecoration(labelText: 'Field 2')),
+              const TextField(
+                decoration: InputDecoration(labelText: 'Field 1'),
+              ),
+              const TextField(
+                decoration: InputDecoration(labelText: 'Field 2'),
+              ),
             ],
           ),
         );
@@ -445,8 +576,12 @@ void main() {
           buildFormSection(
             screenWidth: 800,
             children: [
-              const TextField(decoration: InputDecoration(labelText: 'Field 1')),
-              const TextField(decoration: InputDecoration(labelText: 'Field 2')),
+              const TextField(
+                decoration: InputDecoration(labelText: 'Field 1'),
+              ),
+              const TextField(
+                decoration: InputDecoration(labelText: 'Field 2'),
+              ),
             ],
           ),
         );

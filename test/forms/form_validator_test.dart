@@ -44,7 +44,9 @@ void main() {
         });
 
         test('accepts multiple subdomains', () {
-          final result = FormValidator.emailValidator('user@mail.server.example.com');
+          final result = FormValidator.emailValidator(
+            'user@mail.server.example.com',
+          );
           expect(result, isNull);
         });
       });
@@ -91,7 +93,9 @@ void main() {
         });
 
         test('rejects email with TLD too long', () {
-          final result = FormValidator.emailValidator('user@example.verylongtld');
+          final result = FormValidator.emailValidator(
+            'user@example.verylongtld',
+          );
           expect(result, 'Veuillez entrer une adresse e-mail valide.');
         });
       });
@@ -118,7 +122,10 @@ void main() {
         });
 
         test('validates email format even when isRequired is true', () {
-          final result = FormValidator.emailValidator('invalid', isRequired: true);
+          final result = FormValidator.emailValidator(
+            'invalid',
+            isRequired: true,
+          );
           expect(result, 'Veuillez entrer une adresse e-mail valide.');
         });
       });
@@ -266,12 +273,18 @@ void main() {
         });
 
         test('returns error for text when required', () {
-          final result = FormValidator.numberValidator('not a number', isRequired: true);
+          final result = FormValidator.numberValidator(
+            'not a number',
+            isRequired: true,
+          );
           expect(result, '');
         });
 
         test('returns null for invalid number when not required', () {
-          final result = FormValidator.numberValidator('abc', isRequired: false);
+          final result = FormValidator.numberValidator(
+            'abc',
+            isRequired: false,
+          );
           expect(result, isNull);
         });
       });
@@ -522,15 +535,21 @@ void main() {
         expect(result, isNull);
       });
 
-      test('int validator rejects decimals but number validator accepts them', () {
-        const value = '12.5';
+      test(
+        'int validator rejects decimals but number validator accepts them',
+        () {
+          const value = '12.5';
 
-        final intResult = FormValidator.intValidator(value, isRequired: true);
-        expect(intResult, '');
+          final intResult = FormValidator.intValidator(value, isRequired: true);
+          expect(intResult, '');
 
-        final numberResult = FormValidator.numberValidator(value, isRequired: true);
-        expect(numberResult, isNull);
-      });
+          final numberResult = FormValidator.numberValidator(
+            value,
+            isRequired: true,
+          );
+          expect(numberResult, isNull);
+        },
+      );
     });
   });
 }

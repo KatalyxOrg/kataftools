@@ -3,7 +3,14 @@ import 'package:kataftools/src/dialogs/dialog_header.dart';
 import 'package:kataftools/src/screen_helper.dart';
 
 class ClosableDialog extends StatelessWidget {
-  const ClosableDialog({super.key, this.title, required this.child, this.actions = const [], this.maxWidth = 670, this.isClosable = true});
+  const ClosableDialog({
+    super.key,
+    this.title,
+    required this.child,
+    this.actions = const [],
+    this.maxWidth = 670,
+    this.isClosable = true,
+  });
 
   final String? title;
   final Widget child;
@@ -21,7 +28,12 @@ class ClosableDialog extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
       child: Container(
         constraints: BoxConstraints(maxWidth: maxWidth),
-        padding: EdgeInsets.symmetric(vertical: title != null ? ScreenHelper.instance.horizontalPadding : 20, horizontal: ScreenHelper.instance.horizontalPadding),
+        padding: EdgeInsets.symmetric(
+          vertical: title != null
+              ? ScreenHelper.instance.horizontalPadding
+              : 20,
+          horizontal: ScreenHelper.instance.horizontalPadding,
+        ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,

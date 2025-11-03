@@ -4,6 +4,8 @@
 
 [![Flutter](https://img.shields.io/badge/Flutter-3.35.6+-02569B?style=flat&logo=flutter)](https://flutter.dev/)
 [![Dart](https://img.shields.io/badge/Dart-3.9.2+-0175C2?style=flat&logo=dart)](https://dart.dev/)
+[![Tests](https://github.com/KatalyxOrg/kataftools/actions/workflows/test.yml/badge.svg)](https://github.com/KatalyxOrg/kataftools/actions/workflows/test.yml)
+[![codecov](https://codecov.io/gh/KatalyxOrg/kataftools/branch/master/graph/badge.svg)](https://codecov.io/gh/KatalyxOrg/kataftools)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 ---

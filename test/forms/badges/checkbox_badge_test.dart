@@ -4,17 +4,27 @@ import 'package:kataftools/kataftools.dart';
 
 void main() {
   group('CheckboxBadge', () {
-    Widget buildCheckboxBadge({required bool isChecked, required Function(bool) onCheck, required String title}) {
+    Widget buildCheckboxBadge({
+      required bool isChecked,
+      required Function(bool) onCheck,
+      required String title,
+    }) {
       return MaterialApp(
         home: Scaffold(
-          body: CheckboxBadge(isChecked: isChecked, onCheck: onCheck, title: title),
+          body: CheckboxBadge(
+            isChecked: isChecked,
+            onCheck: onCheck,
+            title: title,
+          ),
         ),
       );
     }
 
     group('Checked State', () {
       testWidgets('shows primary background when checked', (tester) async {
-        await tester.pumpWidget(buildCheckboxBadge(isChecked: true, onCheck: (_) {}, title: 'Test'));
+        await tester.pumpWidget(
+          buildCheckboxBadge(isChecked: true, onCheck: (_) {}, title: 'Test'),
+        );
 
         final container = tester.widget<Container>(find.byType(Container));
         final decoration = container.decoration as BoxDecoration;
@@ -23,8 +33,12 @@ void main() {
         expect(decoration.color, isNot(Colors.transparent));
       });
 
-      testWidgets('shows transparent background when unchecked', (tester) async {
-        await tester.pumpWidget(buildCheckboxBadge(isChecked: false, onCheck: (_) {}, title: 'Test'));
+      testWidgets('shows transparent background when unchecked', (
+        tester,
+      ) async {
+        await tester.pumpWidget(
+          buildCheckboxBadge(isChecked: false, onCheck: (_) {}, title: 'Test'),
+        );
 
         final container = tester.widget<Container>(find.byType(Container));
         final decoration = container.decoration as BoxDecoration;
@@ -35,9 +49,15 @@ void main() {
       testWidgets('uses onPrimary text color when checked', (tester) async {
         await tester.pumpWidget(
           MaterialApp(
-            theme: ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue)),
+            theme: ThemeData(
+              colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+            ),
             home: Scaffold(
-              body: CheckboxBadge(isChecked: true, onCheck: (_) {}, title: 'Test'),
+              body: CheckboxBadge(
+                isChecked: true,
+                onCheck: (_) {},
+                title: 'Test',
+              ),
             ),
           ),
         );
@@ -50,9 +70,15 @@ void main() {
       testWidgets('uses onSurface text color when unchecked', (tester) async {
         await tester.pumpWidget(
           MaterialApp(
-            theme: ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue)),
+            theme: ThemeData(
+              colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+            ),
             home: Scaffold(
-              body: CheckboxBadge(isChecked: false, onCheck: (_) {}, title: 'Test'),
+              body: CheckboxBadge(
+                isChecked: false,
+                onCheck: (_) {},
+                title: 'Test',
+              ),
             ),
           ),
         );
@@ -199,39 +225,66 @@ void main() {
 
     group('Title Display', () {
       testWidgets('displays provided title', (tester) async {
-        await tester.pumpWidget(buildCheckboxBadge(isChecked: false, onCheck: (_) {}, title: 'My Title'));
+        await tester.pumpWidget(
+          buildCheckboxBadge(
+            isChecked: false,
+            onCheck: (_) {},
+            title: 'My Title',
+          ),
+        );
 
         expect(find.text('My Title'), findsOneWidget);
       });
 
       testWidgets('displays different titles correctly', (tester) async {
-        await tester.pumpWidget(buildCheckboxBadge(isChecked: false, onCheck: (_) {}, title: 'Another Title'));
+        await tester.pumpWidget(
+          buildCheckboxBadge(
+            isChecked: false,
+            onCheck: (_) {},
+            title: 'Another Title',
+          ),
+        );
 
         expect(find.text('Another Title'), findsOneWidget);
       });
 
       testWidgets('title uses bodySmall text style', (tester) async {
-        await tester.pumpWidget(buildCheckboxBadge(isChecked: false, onCheck: (_) {}, title: 'Test'));
+        await tester.pumpWidget(
+          buildCheckboxBadge(isChecked: false, onCheck: (_) {}, title: 'Test'),
+        );
 
         final text = tester.widget<Text>(find.text('Test'));
         expect(text.style, isNotNull);
       });
 
       testWidgets('title has fontWeight.w600', (tester) async {
-        await tester.pumpWidget(buildCheckboxBadge(isChecked: false, onCheck: (_) {}, title: 'Test'));
+        await tester.pumpWidget(
+          buildCheckboxBadge(isChecked: false, onCheck: (_) {}, title: 'Test'),
+        );
 
         final text = tester.widget<Text>(find.text('Test'));
         expect(text.style!.fontWeight, FontWeight.w600);
       });
 
       testWidgets('handles long titles', (tester) async {
-        await tester.pumpWidget(buildCheckboxBadge(isChecked: false, onCheck: (_) {}, title: 'This is a very long title that might wrap or overflow'));
+        await tester.pumpWidget(
+          buildCheckboxBadge(
+            isChecked: false,
+            onCheck: (_) {},
+            title: 'This is a very long title that might wrap or overflow',
+          ),
+        );
 
-        expect(find.text('This is a very long title that might wrap or overflow'), findsOneWidget);
+        expect(
+          find.text('This is a very long title that might wrap or overflow'),
+          findsOneWidget,
+        );
       });
 
       testWidgets('handles empty title', (tester) async {
-        await tester.pumpWidget(buildCheckboxBadge(isChecked: false, onCheck: (_) {}, title: ''));
+        await tester.pumpWidget(
+          buildCheckboxBadge(isChecked: false, onCheck: (_) {}, title: ''),
+        );
 
         expect(find.text(''), findsOneWidget);
       });
@@ -241,7 +294,9 @@ void main() {
       testWidgets('text color changes on check state change', (tester) async {
         await tester.pumpWidget(
           MaterialApp(
-            theme: ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: Colors.purple)),
+            theme: ThemeData(
+              colorScheme: ColorScheme.fromSeed(seedColor: Colors.purple),
+            ),
             home: Scaffold(
               body: StatefulBuilder(
                 builder: (context, setState) {
@@ -273,13 +328,17 @@ void main() {
 
     group('Layout and Styling', () {
       testWidgets('uses InkWell for tap handling', (tester) async {
-        await tester.pumpWidget(buildCheckboxBadge(isChecked: false, onCheck: (_) {}, title: 'Test'));
+        await tester.pumpWidget(
+          buildCheckboxBadge(isChecked: false, onCheck: (_) {}, title: 'Test'),
+        );
 
         expect(find.byType(InkWell), findsOneWidget);
       });
 
       testWidgets('container has correct padding', (tester) async {
-        await tester.pumpWidget(buildCheckboxBadge(isChecked: false, onCheck: (_) {}, title: 'Test'));
+        await tester.pumpWidget(
+          buildCheckboxBadge(isChecked: false, onCheck: (_) {}, title: 'Test'),
+        );
 
         final container = tester.widget<Container>(find.byType(Container));
         final padding = container.padding as EdgeInsets;
@@ -291,7 +350,9 @@ void main() {
       });
 
       testWidgets('container has circular border radius', (tester) async {
-        await tester.pumpWidget(buildCheckboxBadge(isChecked: false, onCheck: (_) {}, title: 'Test'));
+        await tester.pumpWidget(
+          buildCheckboxBadge(isChecked: false, onCheck: (_) {}, title: 'Test'),
+        );
 
         final container = tester.widget<Container>(find.byType(Container));
         final decoration = container.decoration as BoxDecoration;
@@ -300,13 +361,17 @@ void main() {
       });
 
       testWidgets('uses Row for content layout', (tester) async {
-        await tester.pumpWidget(buildCheckboxBadge(isChecked: false, onCheck: (_) {}, title: 'Test'));
+        await tester.pumpWidget(
+          buildCheckboxBadge(isChecked: false, onCheck: (_) {}, title: 'Test'),
+        );
 
         expect(find.byType(Row), findsOneWidget);
       });
 
       testWidgets('Row uses mainAxisSize.min', (tester) async {
-        await tester.pumpWidget(buildCheckboxBadge(isChecked: false, onCheck: (_) {}, title: 'Test'));
+        await tester.pumpWidget(
+          buildCheckboxBadge(isChecked: false, onCheck: (_) {}, title: 'Test'),
+        );
 
         final row = tester.widget<Row>(find.byType(Row));
         expect(row.mainAxisSize, MainAxisSize.min);
@@ -317,9 +382,15 @@ void main() {
       testWidgets('uses theme primary color when checked', (tester) async {
         await tester.pumpWidget(
           MaterialApp(
-            theme: ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: Colors.green)),
+            theme: ThemeData(
+              colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
+            ),
             home: Scaffold(
-              body: CheckboxBadge(isChecked: true, onCheck: (_) {}, title: 'Test'),
+              body: CheckboxBadge(
+                isChecked: true,
+                onCheck: (_) {},
+                title: 'Test',
+              ),
             ),
           ),
         );
@@ -334,7 +405,11 @@ void main() {
           MaterialApp(
             theme: ThemeData.dark(),
             home: Scaffold(
-              body: CheckboxBadge(isChecked: true, onCheck: (_) {}, title: 'Test'),
+              body: CheckboxBadge(
+                isChecked: true,
+                onCheck: (_) {},
+                title: 'Test',
+              ),
             ),
           ),
         );
@@ -349,7 +424,11 @@ void main() {
           MaterialApp(
             theme: ThemeData.light(),
             home: Scaffold(
-              body: CheckboxBadge(isChecked: true, onCheck: (_) {}, title: 'Test'),
+              body: CheckboxBadge(
+                isChecked: true,
+                onCheck: (_) {},
+                title: 'Test',
+              ),
             ),
           ),
         );
@@ -360,7 +439,9 @@ void main() {
 
     group('Accessibility', () {
       testWidgets('is tappable for accessibility', (tester) async {
-        await tester.pumpWidget(buildCheckboxBadge(isChecked: false, onCheck: (_) {}, title: 'Test'));
+        await tester.pumpWidget(
+          buildCheckboxBadge(isChecked: false, onCheck: (_) {}, title: 'Test'),
+        );
 
         // InkWell provides tap feedback
         expect(find.byType(InkWell), findsOneWidget);
@@ -474,7 +555,13 @@ void main() {
       });
 
       testWidgets('handles special characters in title', (tester) async {
-        await tester.pumpWidget(buildCheckboxBadge(isChecked: false, onCheck: (_) {}, title: 'Test & Title (1) #2'));
+        await tester.pumpWidget(
+          buildCheckboxBadge(
+            isChecked: false,
+            onCheck: (_) {},
+            title: 'Test & Title (1) #2',
+          ),
+        );
 
         expect(find.text('Test & Title (1) #2'), findsOneWidget);
       });

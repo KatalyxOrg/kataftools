@@ -5,7 +5,13 @@ import 'package:kataftools/src/dialogs/size_limit_dialog.dart';
 import 'package:kataftools/src/forms/image_input.dart';
 
 class ImageInputRound extends StatefulWidget {
-  const ImageInputRound({super.key, required this.networkImageUrl, this.imageFile, this.onChanged, this.size = 92});
+  const ImageInputRound({
+    super.key,
+    required this.networkImageUrl,
+    this.imageFile,
+    this.onChanged,
+    this.size = 92,
+  });
 
   final String networkImageUrl;
   final ImageFile? imageFile;
@@ -33,7 +39,9 @@ class _ImageInputRoundState extends State<ImageInputRound> {
               child: Container(
                 decoration: BoxDecoration(
                   color: Theme.of(context).colorScheme.surface,
-                  border: Border.all(color: Theme.of(context).colorScheme.outlineVariant),
+                  border: Border.all(
+                    color: Theme.of(context).colorScheme.outlineVariant,
+                  ),
                   borderRadius: BorderRadius.circular(widget.size / 2),
                 ),
                 height: widget.size,
@@ -47,13 +55,19 @@ class _ImageInputRoundState extends State<ImageInputRound> {
                       }
 
                       if (widget.imageFile != null) {
-                        return Image.memory(widget.imageFile!.bytes, fit: BoxFit.cover);
+                        return Image.memory(
+                          widget.imageFile!.bytes,
+                          fit: BoxFit.cover,
+                        );
                       }
 
                       return Image.network(
                         widget.networkImageUrl,
-                        errorBuilder: (context, error, stackTrace) =>
-                            Icon(Icons.cloud_upload_outlined, color: Theme.of(context).colorScheme.surfaceContainer, size: widget.size * 0.7),
+                        errorBuilder: (context, error, stackTrace) => Icon(
+                          Icons.cloud_upload_outlined,
+                          color: Theme.of(context).colorScheme.surfaceContainer,
+                          size: widget.size * 0.7,
+                        ),
                         fit: BoxFit.cover,
                       );
                     },
@@ -66,7 +80,10 @@ class _ImageInputRoundState extends State<ImageInputRound> {
             Positioned(
               top: 0,
               right: 0,
-              child: IconButton.filled(onPressed: _pickImage, icon: const Icon(Icons.edit)),
+              child: IconButton.filled(
+                onPressed: _pickImage,
+                icon: const Icon(Icons.edit),
+              ),
             ),
           ],
         ),
@@ -83,7 +100,10 @@ class _ImageInputRoundState extends State<ImageInputRound> {
       _isLoading = true;
     });
 
-    FilePickerResult? result = await FilePicker.platform.pickFiles(type: FileType.image, withData: true);
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.image,
+      withData: true,
+    );
 
     if (result == null) {
       setState(() {
@@ -97,7 +117,10 @@ class _ImageInputRoundState extends State<ImageInputRound> {
     // We need to check the image doesn't exceed 5MB
     if (bytes.lengthInBytes > 5 * 1024 * 1024) {
       if (mounted) {
-        await showDialog(context: context, builder: (context) => const SizeLimitDialog());
+        await showDialog(
+          context: context,
+          builder: (context) => const SizeLimitDialog(),
+        );
       }
       setState(() {
         _isLoading = false;
@@ -106,7 +129,10 @@ class _ImageInputRoundState extends State<ImageInputRound> {
       return;
     }
 
-    final ImageFile imageFile = ImageFile(name: result.files.single.name, bytes: bytes);
+    final ImageFile imageFile = ImageFile(
+      name: result.files.single.name,
+      bytes: bytes,
+    );
 
     setState(() {
       _isLoading = false;

@@ -29,7 +29,10 @@ class _DocumentInputState extends State<DocumentInput> {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        FilledButton(onPressed: _pickDocument, child: const Text("Choisir un fichier")),
+        FilledButton(
+          onPressed: _pickDocument,
+          child: const Text("Choisir un fichier"),
+        ),
         const SizedBox(width: 16),
         Text(widget.documentFile?.name ?? "Aucun fichier sélectionné"),
         if (widget.documentFile != null) ...[
@@ -54,7 +57,11 @@ class _DocumentInputState extends State<DocumentInput> {
       _isLoading = true;
     });
 
-    FilePickerResult? result = await FilePicker.platform.pickFiles(type: FileType.custom, allowedExtensions: ['pdf'], withData: true);
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['pdf'],
+      withData: true,
+    );
 
     if (result == null) {
       setState(() {
@@ -70,12 +77,18 @@ class _DocumentInputState extends State<DocumentInput> {
       if (mounted) {
         await showDialog(
           context: context,
-          builder: (context) => const SizeLimitDialog(title: "Fichier trop volumineux", content: "Le fichier ne doit pas dépasser 5 Mo."),
+          builder: (context) => const SizeLimitDialog(
+            title: "Fichier trop volumineux",
+            content: "Le fichier ne doit pas dépasser 5 Mo.",
+          ),
         );
       }
     }
 
-    final DocumentFile documentFile = DocumentFile(name: result.files.single.name, bytes: bytes);
+    final DocumentFile documentFile = DocumentFile(
+      name: result.files.single.name,
+      bytes: bytes,
+    );
 
     setState(() {
       _isLoading = false;

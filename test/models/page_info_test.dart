@@ -58,7 +58,10 @@ void main() {
       test('copyWith can change both fields', () {
         const original = PageInfo(hasNextPage: true, endCursor: 'cursor1');
 
-        final modified = original.copyWith(hasNextPage: false, endCursor: 'cursor2');
+        final modified = original.copyWith(
+          hasNextPage: false,
+          endCursor: 'cursor2',
+        );
 
         expect(modified.hasNextPage, false);
         expect(modified.endCursor, 'cursor2');
@@ -122,7 +125,10 @@ void main() {
       });
 
       test('round-trip with false hasNextPage', () {
-        const original = PageInfo(hasNextPage: false, endCursor: 'endOfResults');
+        const original = PageInfo(
+          hasNextPage: false,
+          endCursor: 'endOfResults',
+        );
 
         final json = original.toJson();
         final restored = PageInfo.fromJson(json);
@@ -212,19 +218,28 @@ void main() {
       });
 
       test('handles special characters in cursor', () {
-        const pageInfo = PageInfo(hasNextPage: true, endCursor: 'cursor-with-special-chars-!@#\$%^&*()');
+        const pageInfo = PageInfo(
+          hasNextPage: true,
+          endCursor: 'cursor-with-special-chars-!@#\$%^&*()',
+        );
 
         expect(pageInfo.endCursor, 'cursor-with-special-chars-!@#\$%^&*()');
       });
 
       test('handles unicode in cursor', () {
-        const pageInfo = PageInfo(hasNextPage: true, endCursor: 'cursor-with-émojis-🚀🎉');
+        const pageInfo = PageInfo(
+          hasNextPage: true,
+          endCursor: 'cursor-with-émojis-🚀🎉',
+        );
 
         expect(pageInfo.endCursor, 'cursor-with-émojis-🚀🎉');
       });
 
       test('serializes and deserializes special characters', () {
-        const original = PageInfo(hasNextPage: false, endCursor: 'special-chars-🎯');
+        const original = PageInfo(
+          hasNextPage: false,
+          endCursor: 'special-chars-🎯',
+        );
 
         final json = original.toJson();
         final restored = PageInfo.fromJson(json);
@@ -242,7 +257,10 @@ void main() {
       });
 
       test('represents page with more results', () {
-        const hasMorePages = PageInfo(hasNextPage: true, endCursor: 'nextPageCursor');
+        const hasMorePages = PageInfo(
+          hasNextPage: true,
+          endCursor: 'nextPageCursor',
+        );
 
         expect(hasMorePages.hasNextPage, true);
         expect(hasMorePages.endCursor.isNotEmpty, true);

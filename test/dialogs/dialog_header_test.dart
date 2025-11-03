@@ -7,7 +7,9 @@ void main() {
     testWidgets('displays title when provided', (WidgetTester tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(body: DialogHeader(title: 'Test Title', isClosable: false)),
+          home: Scaffold(
+            body: DialogHeader(title: 'Test Title', isClosable: false),
+          ),
         ),
       );
 
@@ -18,18 +20,28 @@ void main() {
       expect(titleWidget.style, isNotNull);
     });
 
-    testWidgets('does not display text when title is null', (WidgetTester tester) async {
-      await tester.pumpWidget(const MaterialApp(home: Scaffold(body: DialogHeader(title: null, isClosable: false))));
+    testWidgets('does not display text when title is null', (
+      WidgetTester tester,
+    ) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: Scaffold(body: DialogHeader(title: null, isClosable: false)),
+        ),
+      );
 
       // Should only find the SizedBox when no title
       expect(find.byType(Text), findsNothing);
       expect(find.byType(Expanded), findsOneWidget);
     });
 
-    testWidgets('shows close button when isClosable is true', (WidgetTester tester) async {
+    testWidgets('shows close button when isClosable is true', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         const MaterialApp(
-          home: Scaffold(body: DialogHeader(title: 'Test Title', isClosable: true)),
+          home: Scaffold(
+            body: DialogHeader(title: 'Test Title', isClosable: true),
+          ),
         ),
       );
 
@@ -37,10 +49,14 @@ void main() {
       expect(find.byType(IconButton), findsOneWidget);
     });
 
-    testWidgets('hides close button when isClosable is false', (WidgetTester tester) async {
+    testWidgets('hides close button when isClosable is false', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         const MaterialApp(
-          home: Scaffold(body: DialogHeader(title: 'Test Title', isClosable: false)),
+          home: Scaffold(
+            body: DialogHeader(title: 'Test Title', isClosable: false),
+          ),
         ),
       );
 
@@ -48,7 +64,9 @@ void main() {
       expect(find.byType(IconButton), findsNothing);
     });
 
-    testWidgets('pops navigator when close button clicked (default behavior)', (WidgetTester tester) async {
+    testWidgets('pops navigator when close button clicked (default behavior)', (
+      WidgetTester tester,
+    ) async {
       bool dialogPopped = false;
 
       await tester.pumpWidget(
@@ -60,7 +78,12 @@ void main() {
                   onPressed: () {
                     showDialog(
                       context: context,
-                      builder: (context) => Dialog(child: DialogHeader(title: 'Test Dialog', isClosable: true)),
+                      builder: (context) => Dialog(
+                        child: DialogHeader(
+                          title: 'Test Dialog',
+                          isClosable: true,
+                        ),
+                      ),
                     ).then((_) => dialogPopped = true);
                   },
                   child: const Text('Show Dialog'),
@@ -86,7 +109,9 @@ void main() {
       expect(dialogPopped, isTrue);
     });
 
-    testWidgets('calls custom onClose when provided', (WidgetTester tester) async {
+    testWidgets('calls custom onClose when provided', (
+      WidgetTester tester,
+    ) async {
       bool customCloseCalled = false;
 
       await tester.pumpWidget(
@@ -113,9 +138,14 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue, brightness: Brightness.light),
+            colorScheme: ColorScheme.fromSeed(
+              seedColor: Colors.blue,
+              brightness: Brightness.light,
+            ),
           ),
-          home: Scaffold(body: DialogHeader(title: 'Test Title', isClosable: true)),
+          home: Scaffold(
+            body: DialogHeader(title: 'Test Title', isClosable: true),
+          ),
         ),
       );
 
@@ -123,10 +153,14 @@ void main() {
       expect(closeButton.color, isNotNull);
     });
 
-    testWidgets('has correct icon size for close button', (WidgetTester tester) async {
+    testWidgets('has correct icon size for close button', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         const MaterialApp(
-          home: Scaffold(body: DialogHeader(title: 'Test Title', isClosable: true)),
+          home: Scaffold(
+            body: DialogHeader(title: 'Test Title', isClosable: true),
+          ),
         ),
       );
 
@@ -134,10 +168,14 @@ void main() {
       expect(closeButton.iconSize, 22);
     });
 
-    testWidgets('maintains proper spacing between title and close button', (WidgetTester tester) async {
+    testWidgets('maintains proper spacing between title and close button', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         const MaterialApp(
-          home: Scaffold(body: DialogHeader(title: 'Test Title', isClosable: true)),
+          home: Scaffold(
+            body: DialogHeader(title: 'Test Title', isClosable: true),
+          ),
         ),
       );
 
@@ -149,7 +187,9 @@ void main() {
     testWidgets('has correct padding', (WidgetTester tester) async {
       await tester.pumpWidget(
         const MaterialApp(
-          home: Scaffold(body: DialogHeader(title: 'Test Title', isClosable: true)),
+          home: Scaffold(
+            body: DialogHeader(title: 'Test Title', isClosable: true),
+          ),
         ),
       );
 
@@ -157,10 +197,14 @@ void main() {
       expect(padding.padding, const EdgeInsets.only(bottom: 8.0));
     });
 
-    testWidgets('arranges children in Row with correct alignment', (WidgetTester tester) async {
+    testWidgets('arranges children in Row with correct alignment', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         const MaterialApp(
-          home: Scaffold(body: DialogHeader(title: 'Test Title', isClosable: true)),
+          home: Scaffold(
+            body: DialogHeader(title: 'Test Title', isClosable: true),
+          ),
         ),
       );
 
@@ -168,10 +212,14 @@ void main() {
       expect(row.crossAxisAlignment, CrossAxisAlignment.center);
     });
 
-    testWidgets('title expands to fill available space', (WidgetTester tester) async {
+    testWidgets('title expands to fill available space', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         const MaterialApp(
-          home: Scaffold(body: DialogHeader(title: 'Test Title', isClosable: true)),
+          home: Scaffold(
+            body: DialogHeader(title: 'Test Title', isClosable: true),
+          ),
         ),
       );
 
@@ -181,7 +229,15 @@ void main() {
 
       // First Expanded should contain the title Text
       final firstExpanded = expanded.first;
-      expect(tester.widgetList(find.descendant(of: find.byWidget(firstExpanded), matching: find.text('Test Title'))), isNotEmpty);
+      expect(
+        tester.widgetList(
+          find.descendant(
+            of: find.byWidget(firstExpanded),
+            matching: find.text('Test Title'),
+          ),
+        ),
+        isNotEmpty,
+      );
     });
   });
 }

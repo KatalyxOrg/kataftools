@@ -4,7 +4,9 @@ import 'package:kataftools/kataftools.dart';
 
 void main() {
   group('ErrorSnackbar', () {
-    testWidgets('shows snackbar when show is called', (WidgetTester tester) async {
+    testWidgets('shows snackbar when show is called', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
@@ -56,12 +58,18 @@ void main() {
       expect(find.text(errorMessage), findsOneWidget);
     });
 
-    testWidgets('uses theme errorContainer color for background', (WidgetTester tester) async {
+    testWidgets('uses theme errorContainer color for background', (
+      WidgetTester tester,
+    ) async {
       const errorMessage = 'Error message';
 
       await tester.pumpWidget(
         MaterialApp(
-          theme: ThemeData(colorScheme: const ColorScheme.light(errorContainer: Color(0xFFFFDAD6))),
+          theme: ThemeData(
+            colorScheme: const ColorScheme.light(
+              errorContainer: Color(0xFFFFDAD6),
+            ),
+          ),
           home: Scaffold(
             body: Builder(
               builder: (context) {
@@ -88,13 +96,18 @@ void main() {
       expect(snackBar.backgroundColor, const Color(0xFFFFDAD6));
     });
 
-    testWidgets('uses theme onErrorContainer color for text', (WidgetTester tester) async {
+    testWidgets('uses theme onErrorContainer color for text', (
+      WidgetTester tester,
+    ) async {
       const errorMessage = 'Error message';
 
       await tester.pumpWidget(
         MaterialApp(
           theme: ThemeData(
-            colorScheme: const ColorScheme.light(errorContainer: Color(0xFFFFDAD6), onErrorContainer: Color(0xFF410002)),
+            colorScheme: const ColorScheme.light(
+              errorContainer: Color(0xFFFFDAD6),
+              onErrorContainer: Color(0xFF410002),
+            ),
           ),
           home: Scaffold(
             body: Builder(
@@ -147,7 +160,9 @@ void main() {
       expect(find.byType(SnackBar), findsOneWidget);
     });
 
-    testWidgets('handles multiple consecutive calls', (WidgetTester tester) async {
+    testWidgets('handles multiple consecutive calls', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
@@ -190,7 +205,8 @@ void main() {
     });
 
     testWidgets('handles long error messages', (WidgetTester tester) async {
-      const longMessage = 'This is a very long error message that should still be displayed correctly in the snackbar without any issues';
+      const longMessage =
+          'This is a very long error message that should still be displayed correctly in the snackbar without any issues';
 
       await tester.pumpWidget(
         MaterialApp(

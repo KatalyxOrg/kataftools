@@ -12,7 +12,13 @@ class ImageFile {
 }
 
 class ImageInput extends StatefulWidget {
-  const ImageInput({super.key, required this.networkImageUrl, this.imageFile, this.onChanged, this.height = 217});
+  const ImageInput({
+    super.key,
+    required this.networkImageUrl,
+    this.imageFile,
+    this.onChanged,
+    this.height = 217,
+  });
 
   final String networkImageUrl;
   final ImageFile? imageFile;
@@ -49,12 +55,19 @@ class _ImageInputState extends State<ImageInput> {
                     }
 
                     if (widget.imageFile != null) {
-                      return Image.memory(widget.imageFile!.bytes, fit: BoxFit.cover);
+                      return Image.memory(
+                        widget.imageFile!.bytes,
+                        fit: BoxFit.cover,
+                      );
                     }
 
                     return Image.network(
                       widget.networkImageUrl,
-                      errorBuilder: (context, error, stackTrace) => Icon(Icons.cloud_upload_outlined, color: Theme.of(context).colorScheme.surfaceContainer, size: 90),
+                      errorBuilder: (context, error, stackTrace) => Icon(
+                        Icons.cloud_upload_outlined,
+                        color: Theme.of(context).colorScheme.surfaceContainer,
+                        size: 90,
+                      ),
                       fit: BoxFit.cover,
                     );
                   },
@@ -67,7 +80,10 @@ class _ImageInputState extends State<ImageInput> {
               bottom: 20,
               right: ScreenHelper.instance.horizontalPadding,
               left: ScreenHelper.instance.horizontalPadding,
-              child: FilledButton(onPressed: _pickImage, child: const Text("Sélectionner une image")),
+              child: FilledButton(
+                onPressed: _pickImage,
+                child: const Text("Sélectionner une image"),
+              ),
             ),
           ],
         ),
@@ -84,7 +100,10 @@ class _ImageInputState extends State<ImageInput> {
       _isLoading = true;
     });
 
-    FilePickerResult? result = await FilePicker.platform.pickFiles(type: FileType.image, withData: true);
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.image,
+      withData: true,
+    );
 
     if (result == null) {
       setState(() {
@@ -98,7 +117,10 @@ class _ImageInputState extends State<ImageInput> {
     // We need to check the image doesn't exceed 5MB
     if (bytes.lengthInBytes > 5 * 1024 * 1024) {
       if (mounted) {
-        await showDialog(context: context, builder: (context) => const SizeLimitDialog());
+        await showDialog(
+          context: context,
+          builder: (context) => const SizeLimitDialog(),
+        );
       }
       setState(() {
         _isLoading = false;
@@ -107,7 +129,10 @@ class _ImageInputState extends State<ImageInput> {
       return;
     }
 
-    final ImageFile imageFile = ImageFile(name: result.files.single.name, bytes: bytes);
+    final ImageFile imageFile = ImageFile(
+      name: result.files.single.name,
+      bytes: bytes,
+    );
 
     setState(() {
       _isLoading = false;

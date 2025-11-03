@@ -31,10 +31,16 @@ void main() {
   group('PaginatedObject<T>', () {
     group('Construction', () {
       test('creates with edges and pageInfo', () {
-        final edges = [const PageCursor<String>(cursor: 'c1', node: 'value1'), const PageCursor<String>(cursor: 'c2', node: 'value2')];
+        final edges = [
+          const PageCursor<String>(cursor: 'c1', node: 'value1'),
+          const PageCursor<String>(cursor: 'c2', node: 'value2'),
+        ];
         const pageInfo = PageInfo(hasNextPage: true, endCursor: 'c2');
 
-        final paginated = PaginatedObject<String>(edges: edges, pageInfo: pageInfo);
+        final paginated = PaginatedObject<String>(
+          edges: edges,
+          pageInfo: pageInfo,
+        );
 
         expect(paginated.edges.length, 2);
         expect(paginated.pageInfo, pageInfo);
@@ -43,7 +49,10 @@ void main() {
       test('creates with empty edges list', () {
         const pageInfo = PageInfo(hasNextPage: false, endCursor: '');
 
-        final paginated = PaginatedObject<String>(edges: [], pageInfo: pageInfo);
+        final paginated = PaginatedObject<String>(
+          edges: [],
+          pageInfo: pageInfo,
+        );
 
         expect(paginated.edges, isEmpty);
         expect(paginated.pageInfo, pageInfo);
@@ -70,10 +79,16 @@ void main() {
       test('creates with custom type', () {
         final node1 = TestNode(id: 1, name: 'Node1');
         final node2 = TestNode(id: 2, name: 'Node2');
-        final edges = [PageCursor<TestNode>(cursor: 'c1', node: node1), PageCursor<TestNode>(cursor: 'c2', node: node2)];
+        final edges = [
+          PageCursor<TestNode>(cursor: 'c1', node: node1),
+          PageCursor<TestNode>(cursor: 'c2', node: node2),
+        ];
         const pageInfo = PageInfo(hasNextPage: true, endCursor: 'c2');
 
-        final paginated = PaginatedObject<TestNode>(edges: edges, pageInfo: pageInfo);
+        final paginated = PaginatedObject<TestNode>(
+          edges: edges,
+          pageInfo: pageInfo,
+        );
 
         expect(paginated.edges.length, 2);
         expect(paginated.edges[0].node, node1);
@@ -91,7 +106,10 @@ void main() {
           'pageInfo': {'hasNextPage': true, 'endCursor': 'c2'},
         };
 
-        final paginated = PaginatedObject<String>.fromJson(json, (obj) => obj as String);
+        final paginated = PaginatedObject<String>.fromJson(
+          json,
+          (obj) => obj as String,
+        );
 
         expect(paginated.edges.length, 2);
         expect(paginated.edges[0].cursor, 'c1');
@@ -111,7 +129,10 @@ void main() {
           'pageInfo': {'hasNextPage': false, 'endCursor': 'c2'},
         };
 
-        final paginated = PaginatedObject<int>.fromJson(json, (obj) => obj as int);
+        final paginated = PaginatedObject<int>.fromJson(
+          json,
+          (obj) => obj as int,
+        );
 
         expect(paginated.edges.length, 2);
         expect(paginated.edges[0].node, 10);
@@ -134,7 +155,10 @@ void main() {
           'pageInfo': {'hasNextPage': true, 'endCursor': 'c2'},
         };
 
-        final paginated = PaginatedObject<TestNode>.fromJson(json, (obj) => TestNode.fromJson(obj as Map<String, Object?>));
+        final paginated = PaginatedObject<TestNode>.fromJson(
+          json,
+          (obj) => TestNode.fromJson(obj as Map<String, Object?>),
+        );
 
         expect(paginated.edges.length, 2);
         expect(paginated.edges[0].node.id, 1);
@@ -151,7 +175,10 @@ void main() {
           'pageInfo': null,
         };
 
-        final paginated = PaginatedObject<String>.fromJson(json, (obj) => obj as String);
+        final paginated = PaginatedObject<String>.fromJson(
+          json,
+          (obj) => obj as String,
+        );
 
         expect(paginated.edges.length, 1);
         expect(paginated.pageInfo, isNull);
@@ -164,7 +191,10 @@ void main() {
           ],
         };
 
-        final paginated = PaginatedObject<String>.fromJson(json, (obj) => obj as String);
+        final paginated = PaginatedObject<String>.fromJson(
+          json,
+          (obj) => obj as String,
+        );
 
         expect(paginated.edges.length, 1);
         expect(paginated.pageInfo, isNull);
@@ -176,17 +206,26 @@ void main() {
           'pageInfo': {'hasNextPage': false, 'endCursor': ''},
         };
 
-        final paginated = PaginatedObject<String>.fromJson(json, (obj) => obj as String);
+        final paginated = PaginatedObject<String>.fromJson(
+          json,
+          (obj) => obj as String,
+        );
 
         expect(paginated.edges, isEmpty);
         expect(paginated.pageInfo?.hasNextPage, false);
       });
 
       test('toJson with String type', () {
-        final edges = [const PageCursor<String>(cursor: 'c1', node: 'value1'), const PageCursor<String>(cursor: 'c2', node: 'value2')];
+        final edges = [
+          const PageCursor<String>(cursor: 'c1', node: 'value1'),
+          const PageCursor<String>(cursor: 'c2', node: 'value2'),
+        ];
         const pageInfo = PageInfo(hasNextPage: true, endCursor: 'c2');
 
-        final paginated = PaginatedObject<String>(edges: edges, pageInfo: pageInfo);
+        final paginated = PaginatedObject<String>(
+          edges: edges,
+          pageInfo: pageInfo,
+        );
 
         final json = paginated.toJson((node) => node);
 
@@ -202,10 +241,16 @@ void main() {
       });
 
       test('toJson with int type', () {
-        final edges = [const PageCursor<int>(cursor: 'c1', node: 10), const PageCursor<int>(cursor: 'c2', node: 20)];
+        final edges = [
+          const PageCursor<int>(cursor: 'c1', node: 10),
+          const PageCursor<int>(cursor: 'c2', node: 20),
+        ];
         const pageInfo = PageInfo(hasNextPage: false, endCursor: 'c2');
 
-        final paginated = PaginatedObject<int>(edges: edges, pageInfo: pageInfo);
+        final paginated = PaginatedObject<int>(
+          edges: edges,
+          pageInfo: pageInfo,
+        );
 
         final json = paginated.toJson((node) => node);
 
@@ -216,14 +261,23 @@ void main() {
       test('toJson with custom type', () {
         final node1 = TestNode(id: 1, name: 'Node1');
         final node2 = TestNode(id: 2, name: 'Node2');
-        final edges = [PageCursor<TestNode>(cursor: 'c1', node: node1), PageCursor<TestNode>(cursor: 'c2', node: node2)];
+        final edges = [
+          PageCursor<TestNode>(cursor: 'c1', node: node1),
+          PageCursor<TestNode>(cursor: 'c2', node: node2),
+        ];
         const pageInfo = PageInfo(hasNextPage: true, endCursor: 'c2');
 
-        final paginated = PaginatedObject<TestNode>(edges: edges, pageInfo: pageInfo);
+        final paginated = PaginatedObject<TestNode>(
+          edges: edges,
+          pageInfo: pageInfo,
+        );
 
         final json = paginated.toJson((node) => node.toJson());
 
-        expect((json['edges'] as List)[0]['node'], isA<Map<dynamic, dynamic>>());
+        expect(
+          (json['edges'] as List)[0]['node'],
+          isA<Map<dynamic, dynamic>>(),
+        );
         expect(((json['edges'] as List)[0]['node'] as Map)['id'], 1);
         expect(((json['edges'] as List)[0]['node'] as Map)['name'], 'Node1');
       });
@@ -239,13 +293,22 @@ void main() {
       });
 
       test('round-trip serialization with String', () {
-        final edges = [const PageCursor<String>(cursor: 'c1', node: 'value1'), const PageCursor<String>(cursor: 'c2', node: 'value2')];
+        final edges = [
+          const PageCursor<String>(cursor: 'c1', node: 'value1'),
+          const PageCursor<String>(cursor: 'c2', node: 'value2'),
+        ];
         const pageInfo = PageInfo(hasNextPage: true, endCursor: 'c2');
 
-        final original = PaginatedObject<String>(edges: edges, pageInfo: pageInfo);
+        final original = PaginatedObject<String>(
+          edges: edges,
+          pageInfo: pageInfo,
+        );
 
         final json = original.toJson((node) => node);
-        final restored = PaginatedObject<String>.fromJson(json, (obj) => obj as String);
+        final restored = PaginatedObject<String>.fromJson(
+          json,
+          (obj) => obj as String,
+        );
 
         expect(restored.edges.length, original.edges.length);
         expect(restored.edges[0].cursor, original.edges[0].cursor);
@@ -259,10 +322,16 @@ void main() {
         final edges = [PageCursor<TestNode>(cursor: 'c1', node: node1)];
         const pageInfo = PageInfo(hasNextPage: false, endCursor: 'c1');
 
-        final original = PaginatedObject<TestNode>(edges: edges, pageInfo: pageInfo);
+        final original = PaginatedObject<TestNode>(
+          edges: edges,
+          pageInfo: pageInfo,
+        );
 
         final json = original.toJson((node) => node.toJson());
-        final restored = PaginatedObject<TestNode>.fromJson(json, (obj) => TestNode.fromJson(obj as Map<String, Object?>));
+        final restored = PaginatedObject<TestNode>.fromJson(
+          json,
+          (obj) => TestNode.fromJson(obj as Map<String, Object?>),
+        );
 
         expect(restored.edges.length, original.edges.length);
         expect(restored.edges[0].node, original.edges[0].node);
@@ -276,8 +345,14 @@ void main() {
         final edges = [const PageCursor<String>(cursor: 'c1', node: 'value1')];
         const pageInfo = PageInfo(hasNextPage: true, endCursor: 'c1');
 
-        final paginated1 = PaginatedObject<String>(edges: edges, pageInfo: pageInfo);
-        final paginated2 = PaginatedObject<String>(edges: edges, pageInfo: pageInfo);
+        final paginated1 = PaginatedObject<String>(
+          edges: edges,
+          pageInfo: pageInfo,
+        );
+        final paginated2 = PaginatedObject<String>(
+          edges: edges,
+          pageInfo: pageInfo,
+        );
 
         expect(paginated1, equals(paginated2));
       });
@@ -287,8 +362,14 @@ void main() {
         final edges2 = [const PageCursor<String>(cursor: 'c2', node: 'value2')];
         const pageInfo = PageInfo(hasNextPage: true, endCursor: 'c1');
 
-        final paginated1 = PaginatedObject<String>(edges: edges1, pageInfo: pageInfo);
-        final paginated2 = PaginatedObject<String>(edges: edges2, pageInfo: pageInfo);
+        final paginated1 = PaginatedObject<String>(
+          edges: edges1,
+          pageInfo: pageInfo,
+        );
+        final paginated2 = PaginatedObject<String>(
+          edges: edges2,
+          pageInfo: pageInfo,
+        );
 
         expect(paginated1, isNot(equals(paginated2)));
       });
@@ -298,8 +379,14 @@ void main() {
         const pageInfo1 = PageInfo(hasNextPage: true, endCursor: 'c1');
         const pageInfo2 = PageInfo(hasNextPage: false, endCursor: 'c1');
 
-        final paginated1 = PaginatedObject<String>(edges: edges, pageInfo: pageInfo1);
-        final paginated2 = PaginatedObject<String>(edges: edges, pageInfo: pageInfo2);
+        final paginated1 = PaginatedObject<String>(
+          edges: edges,
+          pageInfo: pageInfo1,
+        );
+        final paginated2 = PaginatedObject<String>(
+          edges: edges,
+          pageInfo: pageInfo2,
+        );
 
         expect(paginated1, isNot(equals(paginated2)));
       });
@@ -308,8 +395,14 @@ void main() {
         final edges = [const PageCursor<String>(cursor: 'c1', node: 'value1')];
         const pageInfo = PageInfo(hasNextPage: true, endCursor: 'c1');
 
-        final paginated1 = PaginatedObject<String>(edges: edges, pageInfo: pageInfo);
-        final paginated2 = PaginatedObject<String>(edges: edges, pageInfo: null);
+        final paginated1 = PaginatedObject<String>(
+          edges: edges,
+          pageInfo: pageInfo,
+        );
+        final paginated2 = PaginatedObject<String>(
+          edges: edges,
+          pageInfo: null,
+        );
 
         expect(paginated1, isNot(equals(paginated2)));
       });
@@ -320,8 +413,14 @@ void main() {
         final edges = [const PageCursor<String>(cursor: 'c1', node: 'value1')];
         const pageInfo = PageInfo(hasNextPage: true, endCursor: 'c1');
 
-        final paginated1 = PaginatedObject<String>(edges: edges, pageInfo: pageInfo);
-        final paginated2 = PaginatedObject<String>(edges: edges, pageInfo: pageInfo);
+        final paginated1 = PaginatedObject<String>(
+          edges: edges,
+          pageInfo: pageInfo,
+        );
+        final paginated2 = PaginatedObject<String>(
+          edges: edges,
+          pageInfo: pageInfo,
+        );
 
         expect(paginated1.hashCode, equals(paginated2.hashCode));
       });
@@ -331,8 +430,14 @@ void main() {
         final edges2 = [const PageCursor<String>(cursor: 'c2', node: 'value2')];
         const pageInfo = PageInfo(hasNextPage: true, endCursor: 'c1');
 
-        final paginated1 = PaginatedObject<String>(edges: edges1, pageInfo: pageInfo);
-        final paginated2 = PaginatedObject<String>(edges: edges2, pageInfo: pageInfo);
+        final paginated1 = PaginatedObject<String>(
+          edges: edges1,
+          pageInfo: pageInfo,
+        );
+        final paginated2 = PaginatedObject<String>(
+          edges: edges2,
+          pageInfo: pageInfo,
+        );
 
         expect(paginated1.hashCode, isNot(equals(paginated2.hashCode)));
       });
@@ -344,7 +449,10 @@ void main() {
         final edges2 = [const PageCursor<String>(cursor: 'c2', node: 'value2')];
         const pageInfo = PageInfo(hasNextPage: true, endCursor: 'c1');
 
-        final original = PaginatedObject<String>(edges: edges1, pageInfo: pageInfo);
+        final original = PaginatedObject<String>(
+          edges: edges1,
+          pageInfo: pageInfo,
+        );
 
         final modified = original.copyWith(edges: edges2);
 
@@ -358,7 +466,10 @@ void main() {
         const pageInfo1 = PageInfo(hasNextPage: true, endCursor: 'c1');
         const pageInfo2 = PageInfo(hasNextPage: false, endCursor: 'c1');
 
-        final original = PaginatedObject<String>(edges: edges, pageInfo: pageInfo1);
+        final original = PaginatedObject<String>(
+          edges: edges,
+          pageInfo: pageInfo1,
+        );
 
         final modified = original.copyWith(pageInfo: pageInfo2);
 
@@ -373,7 +484,10 @@ void main() {
         const pageInfo1 = PageInfo(hasNextPage: true, endCursor: 'c1');
         const pageInfo2 = PageInfo(hasNextPage: false, endCursor: 'c2');
 
-        final original = PaginatedObject<String>(edges: edges1, pageInfo: pageInfo1);
+        final original = PaginatedObject<String>(
+          edges: edges1,
+          pageInfo: pageInfo1,
+        );
 
         final modified = original.copyWith(edges: edges2, pageInfo: pageInfo2);
 
@@ -385,7 +499,10 @@ void main() {
         final edges = [const PageCursor<String>(cursor: 'c1', node: 'value1')];
         const pageInfo = PageInfo(hasNextPage: true, endCursor: 'c1');
 
-        final original = PaginatedObject<String>(edges: edges, pageInfo: pageInfo);
+        final original = PaginatedObject<String>(
+          edges: edges,
+          pageInfo: pageInfo,
+        );
 
         final copy = original.copyWith();
 
@@ -399,7 +516,10 @@ void main() {
         final edges = [const PageCursor<String>(cursor: 'c1', node: 'value1')];
         const pageInfo = PageInfo(hasNextPage: true, endCursor: 'c1');
 
-        final paginated = PaginatedObject<String>(edges: edges, pageInfo: pageInfo);
+        final paginated = PaginatedObject<String>(
+          edges: edges,
+          pageInfo: pageInfo,
+        );
 
         final str = paginated.toString();
 
@@ -422,10 +542,16 @@ void main() {
 
     group('Edge Cases', () {
       test('handles large number of edges', () {
-        final edges = List.generate(1000, (i) => PageCursor<int>(cursor: 'c$i', node: i));
+        final edges = List.generate(
+          1000,
+          (i) => PageCursor<int>(cursor: 'c$i', node: i),
+        );
         const pageInfo = PageInfo(hasNextPage: true, endCursor: 'c999');
 
-        final paginated = PaginatedObject<int>(edges: edges, pageInfo: pageInfo);
+        final paginated = PaginatedObject<int>(
+          edges: edges,
+          pageInfo: pageInfo,
+        );
 
         expect(paginated.edges.length, 1000);
         expect(paginated.edges[500].node, 500);
@@ -434,7 +560,10 @@ void main() {
       test('handles empty edges with hasNextPage true (edge case)', () {
         const pageInfo = PageInfo(hasNextPage: true, endCursor: '');
 
-        final paginated = PaginatedObject<String>(edges: [], pageInfo: pageInfo);
+        final paginated = PaginatedObject<String>(
+          edges: [],
+          pageInfo: pageInfo,
+        );
 
         expect(paginated.edges, isEmpty);
         expect(paginated.pageInfo?.hasNextPage, true);
@@ -446,7 +575,10 @@ void main() {
         final original = PaginatedObject<String>(edges: [], pageInfo: pageInfo);
 
         final json = original.toJson((node) => node);
-        final restored = PaginatedObject<String>.fromJson(json, (obj) => obj as String);
+        final restored = PaginatedObject<String>.fromJson(
+          json,
+          (obj) => obj as String,
+        );
 
         expect(restored.edges, isEmpty);
         expect(restored.pageInfo?.hasNextPage, false);
@@ -488,7 +620,10 @@ void main() {
         final edges = [const PageCursor<String>(cursor: 'c1', node: 'value1')];
         const pageInfo = PageInfo(hasNextPage: true, endCursor: 'c1');
 
-        final paginated = PaginatedObject<String>(edges: edges, pageInfo: pageInfo);
+        final paginated = PaginatedObject<String>(
+          edges: edges,
+          pageInfo: pageInfo,
+        );
 
         expect(paginated.pageInfo?.hasNextPage, true);
         expect(paginated.pageInfo?.endCursor, 'c1');
@@ -498,16 +633,25 @@ void main() {
         final edges = [const PageCursor<String>(cursor: 'c1', node: 'value1')];
         const pageInfo = PageInfo(hasNextPage: false, endCursor: 'c1');
 
-        final paginated = PaginatedObject<String>(edges: edges, pageInfo: pageInfo);
+        final paginated = PaginatedObject<String>(
+          edges: edges,
+          pageInfo: pageInfo,
+        );
 
         expect(paginated.pageInfo?.hasNextPage, false);
       });
 
       test('can use endCursor from pageInfo for next page request', () {
-        final edges = [const PageCursor<String>(cursor: 'c1', node: 'value1'), const PageCursor<String>(cursor: 'c2', node: 'value2')];
+        final edges = [
+          const PageCursor<String>(cursor: 'c1', node: 'value1'),
+          const PageCursor<String>(cursor: 'c2', node: 'value2'),
+        ];
         const pageInfo = PageInfo(hasNextPage: true, endCursor: 'c2');
 
-        final paginated = PaginatedObject<String>(edges: edges, pageInfo: pageInfo);
+        final paginated = PaginatedObject<String>(
+          edges: edges,
+          pageInfo: pageInfo,
+        );
 
         // Simulate using endCursor for next request
         final nextCursor = paginated.pageInfo?.endCursor;

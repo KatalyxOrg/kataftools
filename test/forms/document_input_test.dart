@@ -16,7 +16,10 @@ void main() {
       ]);
     });
 
-    Widget buildDocumentInput({DocumentFile? documentFile, Function(DocumentFile?)? onChanged}) {
+    Widget buildDocumentInput({
+      DocumentFile? documentFile,
+      Function(DocumentFile?)? onChanged,
+    }) {
       return MaterialApp(
         home: Scaffold(
           body: DocumentInput(documentFile: documentFile, onChanged: onChanged),
@@ -32,13 +35,17 @@ void main() {
         expect(find.byType(FilledButton), findsOneWidget);
       });
 
-      testWidgets('shows "Aucun fichier sélectionné" when no file', (tester) async {
+      testWidgets('shows "Aucun fichier sélectionné" when no file', (
+        tester,
+      ) async {
         await tester.pumpWidget(buildDocumentInput());
 
         expect(find.text('Aucun fichier sélectionné'), findsOneWidget);
       });
 
-      testWidgets('does not show delete button when no file selected', (tester) async {
+      testWidgets('does not show delete button when no file selected', (
+        tester,
+      ) async {
         await tester.pumpWidget(buildDocumentInput());
 
         expect(find.byIcon(Icons.delete), findsNothing);
@@ -53,7 +60,10 @@ void main() {
 
     group('File Selected State', () {
       testWidgets('displays selected filename', (tester) async {
-        final documentFile = DocumentFile(name: 'test-document.pdf', bytes: testDocumentBytes);
+        final documentFile = DocumentFile(
+          name: 'test-document.pdf',
+          bytes: testDocumentBytes,
+        );
 
         await tester.pumpWidget(buildDocumentInput(documentFile: documentFile));
 
@@ -62,7 +72,10 @@ void main() {
       });
 
       testWidgets('shows delete button when file is selected', (tester) async {
-        final documentFile = DocumentFile(name: 'document.pdf', bytes: testDocumentBytes);
+        final documentFile = DocumentFile(
+          name: 'document.pdf',
+          bytes: testDocumentBytes,
+        );
 
         await tester.pumpWidget(buildDocumentInput(documentFile: documentFile));
 
@@ -71,7 +84,10 @@ void main() {
       });
 
       testWidgets('displays different filenames correctly', (tester) async {
-        final documentFile = DocumentFile(name: 'my-important-file.pdf', bytes: testDocumentBytes);
+        final documentFile = DocumentFile(
+          name: 'my-important-file.pdf',
+          bytes: testDocumentBytes,
+        );
 
         await tester.pumpWidget(buildDocumentInput(documentFile: documentFile));
 
@@ -81,9 +97,15 @@ void main() {
 
     group('Delete Functionality', () {
       testWidgets('delete button calls onChanged with null', (tester) async {
-        DocumentFile? changedValue = DocumentFile(name: 'test.pdf', bytes: testDocumentBytes);
+        DocumentFile? changedValue = DocumentFile(
+          name: 'test.pdf',
+          bytes: testDocumentBytes,
+        );
 
-        final documentFile = DocumentFile(name: 'document.pdf', bytes: testDocumentBytes);
+        final documentFile = DocumentFile(
+          name: 'document.pdf',
+          bytes: testDocumentBytes,
+        );
 
         await tester.pumpWidget(
           buildDocumentInput(
@@ -101,14 +123,22 @@ void main() {
         expect(changedValue, isNull);
       });
 
-      testWidgets('delete button is properly positioned in layout', (tester) async {
-        final documentFile = DocumentFile(name: 'document.pdf', bytes: testDocumentBytes);
+      testWidgets('delete button is properly positioned in layout', (
+        tester,
+      ) async {
+        final documentFile = DocumentFile(
+          name: 'document.pdf',
+          bytes: testDocumentBytes,
+        );
 
         await tester.pumpWidget(buildDocumentInput(documentFile: documentFile));
 
         // Should be in a Row with button, text, and delete icon
         final row = tester.widget<Row>(find.byType(Row));
-        expect(row.children.length, greaterThan(3)); // Button, spacing, text, spacing, delete
+        expect(
+          row.children.length,
+          greaterThan(3),
+        ); // Button, spacing, text, spacing, delete
       });
 
       testWidgets('UI resets after delete', (tester) async {
@@ -118,7 +148,10 @@ void main() {
         expect(find.byIcon(Icons.delete), findsNothing);
 
         // Test with file
-        final documentFile = DocumentFile(name: 'document.pdf', bytes: testDocumentBytes);
+        final documentFile = DocumentFile(
+          name: 'document.pdf',
+          bytes: testDocumentBytes,
+        );
 
         await tester.pumpWidget(buildDocumentInput(documentFile: documentFile));
         await tester.pumpAndSettle();
@@ -139,13 +172,19 @@ void main() {
       testWidgets('button text is correct', (tester) async {
         await tester.pumpWidget(buildDocumentInput());
 
-        expect(find.widgetWithText(FilledButton, 'Choisir un fichier'), findsOneWidget);
+        expect(
+          find.widgetWithText(FilledButton, 'Choisir un fichier'),
+          findsOneWidget,
+        );
       });
     });
 
     group('Layout and Spacing', () {
       testWidgets('has proper spacing between elements', (tester) async {
-        final documentFile = DocumentFile(name: 'document.pdf', bytes: testDocumentBytes);
+        final documentFile = DocumentFile(
+          name: 'document.pdf',
+          bytes: testDocumentBytes,
+        );
 
         await tester.pumpWidget(buildDocumentInput(documentFile: documentFile));
 
@@ -153,7 +192,12 @@ void main() {
         expect(find.byType(Row), findsOneWidget);
 
         // Check for SizedBox spacing
-        final spacingBoxes = tester.widgetList<SizedBox>(find.descendant(of: find.byType(Row), matching: find.byType(SizedBox)));
+        final spacingBoxes = tester.widgetList<SizedBox>(
+          find.descendant(
+            of: find.byType(Row),
+            matching: find.byType(SizedBox),
+          ),
+        );
 
         expect(spacingBoxes.length, greaterThan(0));
         expect(spacingBoxes.any((box) => box.width == 16), isTrue);
@@ -167,7 +211,10 @@ void main() {
       });
 
       testWidgets('children are properly aligned', (tester) async {
-        final documentFile = DocumentFile(name: 'document.pdf', bytes: testDocumentBytes);
+        final documentFile = DocumentFile(
+          name: 'document.pdf',
+          bytes: testDocumentBytes,
+        );
 
         await tester.pumpWidget(buildDocumentInput(documentFile: documentFile));
 
@@ -178,20 +225,29 @@ void main() {
 
     group('DocumentFile Model', () {
       test('DocumentFile stores name and bytes', () {
-        final documentFile = DocumentFile(name: 'test.pdf', bytes: testDocumentBytes);
+        final documentFile = DocumentFile(
+          name: 'test.pdf',
+          bytes: testDocumentBytes,
+        );
 
         expect(documentFile.name, 'test.pdf');
         expect(documentFile.bytes, testDocumentBytes);
       });
 
       test('DocumentFile bytes are correct type', () {
-        final documentFile = DocumentFile(name: 'test.pdf', bytes: testDocumentBytes);
+        final documentFile = DocumentFile(
+          name: 'test.pdf',
+          bytes: testDocumentBytes,
+        );
 
         expect(documentFile.bytes, isA<Uint8List>());
       });
 
       test('DocumentFile handles different filenames', () {
-        final documentFile = DocumentFile(name: 'my-custom-file.pdf', bytes: testDocumentBytes);
+        final documentFile = DocumentFile(
+          name: 'my-custom-file.pdf',
+          bytes: testDocumentBytes,
+        );
 
         expect(documentFile.name, 'my-custom-file.pdf');
       });
@@ -227,7 +283,10 @@ void main() {
 
     group('State Transitions', () {
       testWidgets('shows filename when file is provided', (tester) async {
-        final documentFile = DocumentFile(name: 'test.pdf', bytes: testDocumentBytes);
+        final documentFile = DocumentFile(
+          name: 'test.pdf',
+          bytes: testDocumentBytes,
+        );
 
         await tester.pumpWidget(buildDocumentInput(documentFile: documentFile));
 
@@ -248,25 +307,39 @@ void main() {
 
         expect(find.byType(Row), findsOneWidget);
         expect(find.byType(FilledButton), findsOneWidget);
-        expect(find.byType(Text), findsNWidgets(2)); // Button text + status text
+        expect(
+          find.byType(Text),
+          findsNWidgets(2),
+        ); // Button text + status text
         expect(find.byType(SizedBox), findsAtLeastNWidgets(1));
       });
 
-      testWidgets('contains all expected widgets when file selected', (tester) async {
-        final documentFile = DocumentFile(name: 'document.pdf', bytes: testDocumentBytes);
+      testWidgets('contains all expected widgets when file selected', (
+        tester,
+      ) async {
+        final documentFile = DocumentFile(
+          name: 'document.pdf',
+          bytes: testDocumentBytes,
+        );
 
         await tester.pumpWidget(buildDocumentInput(documentFile: documentFile));
 
         expect(find.byType(Row), findsOneWidget);
         expect(find.byType(FilledButton), findsOneWidget);
         expect(find.byType(IconButton), findsOneWidget);
-        expect(find.byType(SizedBox), findsAtLeastNWidgets(2)); // Multiple spacings
+        expect(
+          find.byType(SizedBox),
+          findsAtLeastNWidgets(2),
+        ); // Multiple spacings
       });
     });
 
     group('Edge Cases', () {
       testWidgets('handles reasonable length filenames', (tester) async {
-        final documentFile = DocumentFile(name: 'my-document-file.pdf', bytes: testDocumentBytes);
+        final documentFile = DocumentFile(
+          name: 'my-document-file.pdf',
+          bytes: testDocumentBytes,
+        );
 
         await tester.pumpWidget(buildDocumentInput(documentFile: documentFile));
 
@@ -274,7 +347,10 @@ void main() {
       });
 
       testWidgets('handles filename with special characters', (tester) async {
-        final documentFile = DocumentFile(name: 'file_name.pdf', bytes: testDocumentBytes);
+        final documentFile = DocumentFile(
+          name: 'file_name.pdf',
+          bytes: testDocumentBytes,
+        );
 
         await tester.pumpWidget(buildDocumentInput(documentFile: documentFile));
 
@@ -282,7 +358,10 @@ void main() {
       });
 
       testWidgets('handles empty bytes', (tester) async {
-        final documentFile = DocumentFile(name: 'empty.pdf', bytes: Uint8List(0));
+        final documentFile = DocumentFile(
+          name: 'empty.pdf',
+          bytes: Uint8List(0),
+        );
 
         await tester.pumpWidget(buildDocumentInput(documentFile: documentFile));
 

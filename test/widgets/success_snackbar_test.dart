@@ -4,7 +4,9 @@ import 'package:kataftools/kataftools.dart';
 
 void main() {
   group('SuccessSnackbar', () {
-    testWidgets('shows snackbar when show is called', (WidgetTester tester) async {
+    testWidgets('shows snackbar when show is called', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
@@ -30,7 +32,9 @@ void main() {
       expect(find.text('Test success message'), findsOneWidget);
     });
 
-    testWidgets('displays correct success message', (WidgetTester tester) async {
+    testWidgets('displays correct success message', (
+      WidgetTester tester,
+    ) async {
       const successMessage = 'Operation completed successfully';
 
       await tester.pumpWidget(
@@ -143,7 +147,9 @@ void main() {
       expect(find.byType(SnackBar), findsOneWidget);
     });
 
-    testWidgets('handles multiple consecutive calls', (WidgetTester tester) async {
+    testWidgets('handles multiple consecutive calls', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
@@ -185,7 +191,8 @@ void main() {
     });
 
     testWidgets('handles long success messages', (WidgetTester tester) async {
-      const longMessage = 'This is a very long success message that should still be displayed correctly in the snackbar without any issues';
+      const longMessage =
+          'This is a very long success message that should still be displayed correctly in the snackbar without any issues';
 
       await tester.pumpWidget(
         MaterialApp(
@@ -235,7 +242,9 @@ void main() {
       expect(find.byType(SnackBar), findsOneWidget);
     });
 
-    testWidgets('works in MaterialApp without explicit theme', (WidgetTester tester) async {
+    testWidgets('works in MaterialApp without explicit theme', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
@@ -260,7 +269,9 @@ void main() {
       expect(find.byType(SnackBar), findsOneWidget);
     });
 
-    testWidgets('alternating with error snackbar works correctly', (WidgetTester tester) async {
+    testWidgets('alternating with error snackbar works correctly', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(

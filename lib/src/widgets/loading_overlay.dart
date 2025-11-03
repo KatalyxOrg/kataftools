@@ -38,10 +38,7 @@ class LoadingOverlayState extends State<LoadingOverlay> {
             opacity: 0.8,
             child: ModalBarrier(dismissible: false, color: Colors.black),
           ),
-        if (_isLoading)
-          const Center(
-            child: CircularProgressIndicator(),
-          ),
+        if (_isLoading) const Center(child: CircularProgressIndicator()),
       ],
     );
   }

@@ -10,7 +10,12 @@ void main() {
       }
 
       return MaterialApp(
-        home: Scaffold(body: FormLayout(children: children ?? [const Text('Child 1'), const Text('Child 2')])),
+        home: Scaffold(
+          body: FormLayout(
+            children:
+                children ?? [const Text('Child 1'), const Text('Child 2')],
+          ),
+        ),
       );
     }
 
@@ -18,15 +23,30 @@ void main() {
       testWidgets('enforces maxWidth of 984px', (tester) async {
         await tester.pumpWidget(buildFormLayout());
 
-        final constrainedBox = tester.widget<ConstrainedBox>(find.descendant(of: find.byType(FormLayout), matching: find.byType(ConstrainedBox)));
+        final constrainedBox = tester.widget<ConstrainedBox>(
+          find.descendant(
+            of: find.byType(FormLayout),
+            matching: find.byType(ConstrainedBox),
+          ),
+        );
         expect(constrainedBox.constraints.maxWidth, 984);
       });
 
-      testWidgets('maxWidth matches ScreenHelper.maxContainerWidth', (tester) async {
+      testWidgets('maxWidth matches ScreenHelper.maxContainerWidth', (
+        tester,
+      ) async {
         await tester.pumpWidget(buildFormLayout());
 
-        final constrainedBox = tester.widget<ConstrainedBox>(find.descendant(of: find.byType(FormLayout), matching: find.byType(ConstrainedBox)));
-        expect(constrainedBox.constraints.maxWidth, ScreenHelper.maxContainerWidth);
+        final constrainedBox = tester.widget<ConstrainedBox>(
+          find.descendant(
+            of: find.byType(FormLayout),
+            matching: find.byType(ConstrainedBox),
+          ),
+        );
+        expect(
+          constrainedBox.constraints.maxWidth,
+          ScreenHelper.maxContainerWidth,
+        );
       });
     });
 
@@ -40,7 +60,9 @@ void main() {
     });
 
     group('Padding', () {
-      testWidgets('uses ScreenHelper horizontalPadding for all sides', (tester) async {
+      testWidgets('uses ScreenHelper horizontalPadding for all sides', (
+        tester,
+      ) async {
         // Set screen width to mobile
         await tester.pumpWidget(buildFormLayout(screenWidth: 400));
 
@@ -95,7 +117,15 @@ void main() {
 
     group('Children Rendering', () {
       testWidgets('all children render in Column', (tester) async {
-        await tester.pumpWidget(buildFormLayout(children: [const Text('First'), const Text('Second'), const Text('Third')]));
+        await tester.pumpWidget(
+          buildFormLayout(
+            children: [
+              const Text('First'),
+              const Text('Second'),
+              const Text('Third'),
+            ],
+          ),
+        );
 
         expect(find.text('First'), findsOneWidget);
         expect(find.text('Second'), findsOneWidget);
@@ -103,20 +133,30 @@ void main() {
       });
 
       testWidgets('children are rendered in provided order', (tester) async {
-        await tester.pumpWidget(buildFormLayout(children: [const Text('A'), const Text('B'), const Text('C')]));
+        await tester.pumpWidget(
+          buildFormLayout(
+            children: [const Text('A'), const Text('B'), const Text('C')],
+          ),
+        );
 
         final column = tester.widget<Column>(find.byType(Column));
         expect(column.children.length, 3);
       });
 
       testWidgets('handles single child', (tester) async {
-        await tester.pumpWidget(buildFormLayout(children: [const Text('Only Child')]));
+        await tester.pumpWidget(
+          buildFormLayout(children: [const Text('Only Child')]),
+        );
 
         expect(find.text('Only Child'), findsOneWidget);
       });
 
       testWidgets('handles many children', (tester) async {
-        await tester.pumpWidget(buildFormLayout(children: List.generate(20, (index) => Text('Child $index'))));
+        await tester.pumpWidget(
+          buildFormLayout(
+            children: List.generate(20, (index) => Text('Child $index')),
+          ),
+        );
 
         expect(find.text('Child 0'), findsOneWidget);
         expect(find.text('Child 19'), findsOneWidget);
@@ -146,7 +186,11 @@ void main() {
       });
 
       testWidgets('Column stretches children to full width', (tester) async {
-        await tester.pumpWidget(buildFormLayout(children: [Container(height: 50, color: Colors.blue)]));
+        await tester.pumpWidget(
+          buildFormLayout(
+            children: [Container(height: 50, color: Colors.blue)],
+          ),
+        );
 
         expect(find.byType(Column), findsOneWidget);
         final column = tester.widget<Column>(find.byType(Column));
@@ -155,14 +199,19 @@ void main() {
     });
 
     group('Widget Hierarchy', () {
-      testWidgets('contains Align → ConstrainedBox → Padding → Column', (tester) async {
+      testWidgets('contains Align → ConstrainedBox → Padding → Column', (
+        tester,
+      ) async {
         await tester.pumpWidget(buildFormLayout());
 
         expect(find.byType(Align), findsOneWidget);
         expect(find.byType(Padding), findsOneWidget);
         expect(find.byType(Column), findsOneWidget);
 
-        final constrainedBox = find.descendant(of: find.byType(FormLayout), matching: find.byType(ConstrainedBox));
+        final constrainedBox = find.descendant(
+          of: find.byType(FormLayout),
+          matching: find.byType(ConstrainedBox),
+        );
         expect(constrainedBox, findsOneWidget);
       });
 
@@ -172,7 +221,10 @@ void main() {
         expect(
           find.descendant(
             of: find.byType(Align),
-            matching: find.descendant(of: find.byType(FormLayout), matching: find.byType(ConstrainedBox)),
+            matching: find.descendant(
+              of: find.byType(FormLayout),
+              matching: find.byType(ConstrainedBox),
+            ),
           ),
           findsOneWidget,
         );
@@ -181,15 +233,27 @@ void main() {
       testWidgets('ConstrainedBox contains Padding', (tester) async {
         await tester.pumpWidget(buildFormLayout());
 
-        final constrainedBox = find.descendant(of: find.byType(FormLayout), matching: find.byType(ConstrainedBox));
+        final constrainedBox = find.descendant(
+          of: find.byType(FormLayout),
+          matching: find.byType(ConstrainedBox),
+        );
 
-        expect(find.descendant(of: constrainedBox, matching: find.byType(Padding)), findsOneWidget);
+        expect(
+          find.descendant(of: constrainedBox, matching: find.byType(Padding)),
+          findsOneWidget,
+        );
       });
 
       testWidgets('Padding contains Column', (tester) async {
         await tester.pumpWidget(buildFormLayout());
 
-        expect(find.descendant(of: find.byType(Padding), matching: find.byType(Column)), findsOneWidget);
+        expect(
+          find.descendant(
+            of: find.byType(Padding),
+            matching: find.byType(Column),
+          ),
+          findsOneWidget,
+        );
       });
     });
 
@@ -211,17 +275,31 @@ void main() {
         expect(edgeInsets.left, 32);
       });
 
-      testWidgets('maintains max width constraint on large screens', (tester) async {
+      testWidgets('maintains max width constraint on large screens', (
+        tester,
+      ) async {
         await tester.pumpWidget(buildFormLayout(screenWidth: 1920));
 
-        final constrainedBox = tester.widget<ConstrainedBox>(find.descendant(of: find.byType(FormLayout), matching: find.byType(ConstrainedBox)));
+        final constrainedBox = tester.widget<ConstrainedBox>(
+          find.descendant(
+            of: find.byType(FormLayout),
+            matching: find.byType(ConstrainedBox),
+          ),
+        );
         expect(constrainedBox.constraints.maxWidth, 984);
       });
 
-      testWidgets('maintains max width constraint on small screens', (tester) async {
+      testWidgets('maintains max width constraint on small screens', (
+        tester,
+      ) async {
         await tester.pumpWidget(buildFormLayout(screenWidth: 320));
 
-        final constrainedBox = tester.widget<ConstrainedBox>(find.descendant(of: find.byType(FormLayout), matching: find.byType(ConstrainedBox)));
+        final constrainedBox = tester.widget<ConstrainedBox>(
+          find.descendant(
+            of: find.byType(FormLayout),
+            matching: find.byType(ConstrainedBox),
+          ),
+        );
         expect(constrainedBox.constraints.maxWidth, 984);
       });
     });
@@ -236,8 +314,12 @@ void main() {
                   FormSection(
                     title: 'Test Section',
                     children: [
-                      const TextField(decoration: InputDecoration(labelText: 'Field 1')),
-                      const TextField(decoration: InputDecoration(labelText: 'Field 2')),
+                      const TextField(
+                        decoration: InputDecoration(labelText: 'Field 1'),
+                      ),
+                      const TextField(
+                        decoration: InputDecoration(labelText: 'Field 2'),
+                      ),
                     ],
                   ),
                 ],
@@ -259,12 +341,20 @@ void main() {
                 children: [
                   FormSection(
                     title: 'Section 1',
-                    children: [const TextField(decoration: InputDecoration(labelText: 'Field 1'))],
+                    children: [
+                      const TextField(
+                        decoration: InputDecoration(labelText: 'Field 1'),
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 24),
                   FormSection(
                     title: 'Section 2',
-                    children: [const TextField(decoration: InputDecoration(labelText: 'Field 2'))],
+                    children: [
+                      const TextField(
+                        decoration: InputDecoration(labelText: 'Field 2'),
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -279,14 +369,22 @@ void main() {
 
     group('Edge Cases', () {
       testWidgets('handles reasonable width content', (tester) async {
-        await tester.pumpWidget(buildFormLayout(children: [Container(width: 500, height: 50, color: Colors.red)]));
+        await tester.pumpWidget(
+          buildFormLayout(
+            children: [Container(width: 500, height: 50, color: Colors.red)],
+          ),
+        );
 
         expect(find.byType(FormLayout), findsOneWidget);
         expect(find.byType(Container), findsWidgets);
       });
 
       testWidgets('handles normal height content', (tester) async {
-        await tester.pumpWidget(buildFormLayout(children: [Container(height: 200, color: Colors.blue)]));
+        await tester.pumpWidget(
+          buildFormLayout(
+            children: [Container(height: 200, color: Colors.blue)],
+          ),
+        );
 
         expect(find.byType(FormLayout), findsOneWidget);
       });
@@ -324,11 +422,21 @@ void main() {
         expect(edgeInsets.left, 24);
       });
 
-      testWidgets('uses ScreenHelper.maxContainerWidth constant', (tester) async {
+      testWidgets('uses ScreenHelper.maxContainerWidth constant', (
+        tester,
+      ) async {
         await tester.pumpWidget(buildFormLayout());
 
-        final constrainedBox = tester.widget<ConstrainedBox>(find.descendant(of: find.byType(FormLayout), matching: find.byType(ConstrainedBox)));
-        expect(constrainedBox.constraints.maxWidth, ScreenHelper.maxContainerWidth);
+        final constrainedBox = tester.widget<ConstrainedBox>(
+          find.descendant(
+            of: find.byType(FormLayout),
+            matching: find.byType(ConstrainedBox),
+          ),
+        );
+        expect(
+          constrainedBox.constraints.maxWidth,
+          ScreenHelper.maxContainerWidth,
+        );
         expect(ScreenHelper.maxContainerWidth, 984);
       });
     });

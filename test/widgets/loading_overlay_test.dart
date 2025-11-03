@@ -5,18 +5,28 @@ import 'package:kataftools/kataftools.dart';
 void main() {
   group('LoadingOverlay', () {
     testWidgets('renders child widget', (WidgetTester tester) async {
-      await tester.pumpWidget(const MaterialApp(home: LoadingOverlay(child: Text('Test Child'))));
+      await tester.pumpWidget(
+        const MaterialApp(home: LoadingOverlay(child: Text('Test Child'))),
+      );
 
       expect(find.text('Test Child'), findsOneWidget);
     });
 
     testWidgets('is hidden by default', (WidgetTester tester) async {
-      await tester.pumpWidget(const MaterialApp(home: LoadingOverlay(child: Text('Test Child'))));
+      await tester.pumpWidget(
+        const MaterialApp(home: LoadingOverlay(child: Text('Test Child'))),
+      );
 
       // Loading indicator should not be visible
       expect(find.byType(CircularProgressIndicator), findsNothing);
       // Check for the specific ModalBarrier from LoadingOverlay (with Opacity parent)
-      expect(find.ancestor(of: find.byType(ModalBarrier), matching: find.byType(Opacity)), findsNothing);
+      expect(
+        find.ancestor(
+          of: find.byType(ModalBarrier),
+          matching: find.byType(Opacity),
+        ),
+        findsNothing,
+      );
     });
 
     testWidgets('show() displays loading overlay', (WidgetTester tester) async {
@@ -74,7 +84,13 @@ void main() {
       await tester.pump();
 
       // Check for the modal barrier with opacity wrapper (from LoadingOverlay)
-      expect(find.ancestor(of: find.byType(ModalBarrier), matching: find.byType(Opacity)), findsOneWidget);
+      expect(
+        find.ancestor(
+          of: find.byType(ModalBarrier),
+          matching: find.byType(Opacity),
+        ),
+        findsOneWidget,
+      );
     });
 
     testWidgets('hide() removes loading overlay', (WidgetTester tester) async {
@@ -170,7 +186,9 @@ void main() {
       expect(buttonTapCount, 1);
     });
 
-    testWidgets('modal barrier is dismissible false', (WidgetTester tester) async {
+    testWidgets('modal barrier is dismissible false', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
@@ -195,7 +213,10 @@ void main() {
 
       // Find the ModalBarrier that's wrapped in Opacity (from LoadingOverlay)
       final opacityFinder = find.byType(Opacity);
-      final modalBarrierFinder = find.descendant(of: opacityFinder, matching: find.byType(ModalBarrier));
+      final modalBarrierFinder = find.descendant(
+        of: opacityFinder,
+        matching: find.byType(ModalBarrier),
+      );
 
       expect(modalBarrierFinder, findsOneWidget);
       final modalBarrier = tester.widget<ModalBarrier>(modalBarrierFinder);
@@ -227,7 +248,10 @@ void main() {
 
       // Find the ModalBarrier that's wrapped in Opacity (from LoadingOverlay)
       final opacityFinder = find.byType(Opacity);
-      final modalBarrierFinder = find.descendant(of: opacityFinder, matching: find.byType(ModalBarrier));
+      final modalBarrierFinder = find.descendant(
+        of: opacityFinder,
+        matching: find.byType(ModalBarrier),
+      );
 
       final modalBarrier = tester.widget<ModalBarrier>(modalBarrierFinder);
       expect(modalBarrier.color, Colors.black);
@@ -258,11 +282,16 @@ void main() {
 
       // Find the Opacity widget that wraps the ModalBarrier
       final opacities = tester.widgetList<Opacity>(find.byType(Opacity));
-      final loadingOpacity = opacities.firstWhere((opacity) => opacity.opacity == 0.8, orElse: () => throw TestFailure('No Opacity with 0.8 found'));
+      final loadingOpacity = opacities.firstWhere(
+        (opacity) => opacity.opacity == 0.8,
+        orElse: () => throw TestFailure('No Opacity with 0.8 found'),
+      );
       expect(loadingOpacity.opacity, 0.8);
     });
 
-    testWidgets('of(context) returns correct state', (WidgetTester tester) async {
+    testWidgets('of(context) returns correct state', (
+      WidgetTester tester,
+    ) async {
       LoadingOverlayState? capturedState;
 
       await tester.pumpWidget(
@@ -291,7 +320,9 @@ void main() {
       expect(capturedState, isA<LoadingOverlayState>());
     });
 
-    testWidgets('multiple show calls work correctly', (WidgetTester tester) async {
+    testWidgets('multiple show calls work correctly', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
@@ -318,10 +349,18 @@ void main() {
       // Should still show only one loading indicator
       expect(find.byType(CircularProgressIndicator), findsOneWidget);
       // Check for the modal barrier with opacity wrapper
-      expect(find.ancestor(of: find.byType(ModalBarrier), matching: find.byType(Opacity)), findsOneWidget);
+      expect(
+        find.ancestor(
+          of: find.byType(ModalBarrier),
+          matching: find.byType(Opacity),
+        ),
+        findsOneWidget,
+      );
     });
 
-    testWidgets('multiple hide calls work correctly', (WidgetTester tester) async {
+    testWidgets('multiple hide calls work correctly', (
+      WidgetTester tester,
+    ) async {
       late LoadingOverlayState overlayState;
 
       await tester.pumpWidget(
@@ -366,7 +405,9 @@ void main() {
       expect(find.byType(CircularProgressIndicator), findsNothing);
     });
 
-    testWidgets('works with complex child widget tree', (WidgetTester tester) async {
+    testWidgets('works with complex child widget tree', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
@@ -408,7 +449,9 @@ void main() {
       expect(find.byType(CircularProgressIndicator), findsOneWidget);
     });
 
-    testWidgets('CircularProgressIndicator is centered', (WidgetTester tester) async {
+    testWidgets('CircularProgressIndicator is centered', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
@@ -431,10 +474,18 @@ void main() {
       await tester.tap(find.text('Show Loading'));
       await tester.pump();
 
-      expect(find.ancestor(of: find.byType(CircularProgressIndicator), matching: find.byType(Center)), findsOneWidget);
+      expect(
+        find.ancestor(
+          of: find.byType(CircularProgressIndicator),
+          matching: find.byType(Center),
+        ),
+        findsOneWidget,
+      );
     });
 
-    testWidgets('child remains visible when loading', (WidgetTester tester) async {
+    testWidgets('child remains visible when loading', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(

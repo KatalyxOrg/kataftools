@@ -13,7 +13,8 @@ void main() {
                 onPressed: () {
                   showDialog(
                     context: context,
-                    builder: (context) => ClosableDialog(child: Text('Test Content')),
+                    builder: (context) =>
+                        ClosableDialog(child: Text('Test Content')),
                   );
                 },
                 child: const Text('Show Dialog'),
@@ -29,7 +30,9 @@ void main() {
       expect(find.text('Test Content'), findsOneWidget);
     });
 
-    testWidgets('renders DialogHeader with title when title is provided', (WidgetTester tester) async {
+    testWidgets('renders DialogHeader with title when title is provided', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
@@ -38,7 +41,10 @@ void main() {
                 onPressed: () {
                   showDialog(
                     context: context,
-                    builder: (context) => ClosableDialog(title: 'Test Title', child: Text('Content')),
+                    builder: (context) => ClosableDialog(
+                      title: 'Test Title',
+                      child: Text('Content'),
+                    ),
                   );
                 },
                 child: const Text('Show Dialog'),
@@ -55,7 +61,9 @@ void main() {
       expect(find.byType(DialogHeader), findsOneWidget);
     });
 
-    testWidgets('renders DialogHeader without title when title is null', (WidgetTester tester) async {
+    testWidgets('renders DialogHeader without title when title is null', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
@@ -64,7 +72,8 @@ void main() {
                 onPressed: () {
                   showDialog(
                     context: context,
-                    builder: (context) => ClosableDialog(title: null, child: Text('Content')),
+                    builder: (context) =>
+                        ClosableDialog(title: null, child: Text('Content')),
                   );
                 },
                 child: const Text('Show Dialog'),
@@ -80,7 +89,9 @@ void main() {
       expect(find.byType(DialogHeader), findsOneWidget);
     });
 
-    testWidgets('renders all action widgets in footer', (WidgetTester tester) async {
+    testWidgets('renders all action widgets in footer', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
@@ -113,7 +124,9 @@ void main() {
       expect(find.text('Confirm'), findsOneWidget);
     });
 
-    testWidgets('actions are aligned to the right', (WidgetTester tester) async {
+    testWidgets('actions are aligned to the right', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
@@ -124,7 +137,9 @@ void main() {
                     context: context,
                     builder: (context) => ClosableDialog(
                       title: 'Test Dialog',
-                      actions: [TextButton(onPressed: () {}, child: Text('Action'))],
+                      actions: [
+                        TextButton(onPressed: () {}, child: Text('Action')),
+                      ],
                       child: Text('Content'),
                     ),
                   );
@@ -141,7 +156,9 @@ void main() {
 
       // Find the Row containing actions
       final rows = tester.widgetList<Row>(find.byType(Row));
-      final actionsRow = rows.firstWhere((row) => row.mainAxisAlignment == MainAxisAlignment.end);
+      final actionsRow = rows.firstWhere(
+        (row) => row.mainAxisAlignment == MainAxisAlignment.end,
+      );
       expect(actionsRow.mainAxisAlignment, MainAxisAlignment.end);
     });
 
@@ -156,7 +173,10 @@ void main() {
                 onPressed: () {
                   showDialog(
                     context: context,
-                    builder: (context) => ClosableDialog(maxWidth: customMaxWidth, child: Text('Content')),
+                    builder: (context) => ClosableDialog(
+                      maxWidth: customMaxWidth,
+                      child: Text('Content'),
+                    ),
                   );
                 },
                 child: const Text('Show Dialog'),
@@ -169,12 +189,21 @@ void main() {
       await tester.tap(find.text('Show Dialog'));
       await tester.pumpAndSettle();
 
-      final Container container = tester.widget(find.descendant(of: find.byType(Dialog), matching: find.byType(Container)).first);
+      final Container container = tester.widget(
+        find
+            .descendant(
+              of: find.byType(Dialog),
+              matching: find.byType(Container),
+            )
+            .first,
+      );
 
       expect(container.constraints?.maxWidth, customMaxWidth);
     });
 
-    testWidgets('uses default maxWidth when not specified', (WidgetTester tester) async {
+    testWidgets('uses default maxWidth when not specified', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
@@ -183,7 +212,8 @@ void main() {
                 onPressed: () {
                   showDialog(
                     context: context,
-                    builder: (context) => ClosableDialog(child: Text('Content')),
+                    builder: (context) =>
+                        ClosableDialog(child: Text('Content')),
                   );
                 },
                 child: const Text('Show Dialog'),
@@ -196,12 +226,21 @@ void main() {
       await tester.tap(find.text('Show Dialog'));
       await tester.pumpAndSettle();
 
-      final Container container = tester.widget(find.descendant(of: find.byType(Dialog), matching: find.byType(Container)).first);
+      final Container container = tester.widget(
+        find
+            .descendant(
+              of: find.byType(Dialog),
+              matching: find.byType(Container),
+            )
+            .first,
+      );
 
       expect(container.constraints?.maxWidth, 670);
     });
 
-    testWidgets('close button appears when isClosable is true', (WidgetTester tester) async {
+    testWidgets('close button appears when isClosable is true', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
@@ -210,7 +249,11 @@ void main() {
                 onPressed: () {
                   showDialog(
                     context: context,
-                    builder: (context) => ClosableDialog(title: 'Test Dialog', isClosable: true, child: Text('Content')),
+                    builder: (context) => ClosableDialog(
+                      title: 'Test Dialog',
+                      isClosable: true,
+                      child: Text('Content'),
+                    ),
                   );
                 },
                 child: const Text('Show Dialog'),
@@ -226,7 +269,9 @@ void main() {
       expect(find.byIcon(Icons.close), findsOneWidget);
     });
 
-    testWidgets('close button hidden when isClosable is false', (WidgetTester tester) async {
+    testWidgets('close button hidden when isClosable is false', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
@@ -235,7 +280,11 @@ void main() {
                 onPressed: () {
                   showDialog(
                     context: context,
-                    builder: (context) => ClosableDialog(title: 'Test Dialog', isClosable: false, child: Text('Content')),
+                    builder: (context) => ClosableDialog(
+                      title: 'Test Dialog',
+                      isClosable: false,
+                      child: Text('Content'),
+                    ),
                   );
                 },
                 child: const Text('Show Dialog'),
@@ -251,7 +300,9 @@ void main() {
       expect(find.byIcon(Icons.close), findsNothing);
     });
 
-    testWidgets('clicking close button dismisses dialog', (WidgetTester tester) async {
+    testWidgets('clicking close button dismisses dialog', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
@@ -260,7 +311,11 @@ void main() {
                 onPressed: () {
                   showDialog(
                     context: context,
-                    builder: (context) => ClosableDialog(title: 'Test Dialog', isClosable: true, child: Text('Content')),
+                    builder: (context) => ClosableDialog(
+                      title: 'Test Dialog',
+                      isClosable: true,
+                      child: Text('Content'),
+                    ),
                   );
                 },
                 child: const Text('Show Dialog'),
@@ -281,7 +336,9 @@ void main() {
       expect(find.byType(Dialog), findsNothing);
     });
 
-    testWidgets('uses ScreenHelper horizontalPadding', (WidgetTester tester) async {
+    testWidgets('uses ScreenHelper horizontalPadding', (
+      WidgetTester tester,
+    ) async {
       // Set a specific screen size
       ScreenHelper.instance.setValues(800); // Desktop
 
@@ -293,7 +350,10 @@ void main() {
                 onPressed: () {
                   showDialog(
                     context: context,
-                    builder: (context) => ClosableDialog(title: 'Test Dialog', child: Text('Content')),
+                    builder: (context) => ClosableDialog(
+                      title: 'Test Dialog',
+                      child: Text('Content'),
+                    ),
                   );
                 },
                 child: const Text('Show Dialog'),
@@ -306,13 +366,22 @@ void main() {
       await tester.tap(find.text('Show Dialog'));
       await tester.pumpAndSettle();
 
-      final Container container = tester.widget(find.descendant(of: find.byType(Dialog), matching: find.byType(Container)).first);
+      final Container container = tester.widget(
+        find
+            .descendant(
+              of: find.byType(Dialog),
+              matching: find.byType(Container),
+            )
+            .first,
+      );
 
       final padding = container.padding as EdgeInsets;
       expect(padding.horizontal, ScreenHelper.instance.horizontalPadding * 2);
     });
 
-    testWidgets('vertical padding differs when title is provided vs null', (WidgetTester tester) async {
+    testWidgets('vertical padding differs when title is provided vs null', (
+      WidgetTester tester,
+    ) async {
       ScreenHelper.instance.setValues(800);
 
       // Test with title
@@ -324,7 +393,10 @@ void main() {
                 onPressed: () {
                   showDialog(
                     context: context,
-                    builder: (context) => ClosableDialog(title: 'Test Dialog', child: Text('Content')),
+                    builder: (context) => ClosableDialog(
+                      title: 'Test Dialog',
+                      child: Text('Content'),
+                    ),
                   );
                 },
                 child: const Text('Show Dialog'),
@@ -337,10 +409,20 @@ void main() {
       await tester.tap(find.text('Show Dialog'));
       await tester.pumpAndSettle();
 
-      final Container containerWithTitle = tester.widget(find.descendant(of: find.byType(Dialog), matching: find.byType(Container)).first);
+      final Container containerWithTitle = tester.widget(
+        find
+            .descendant(
+              of: find.byType(Dialog),
+              matching: find.byType(Container),
+            )
+            .first,
+      );
 
       final paddingWithTitle = containerWithTitle.padding as EdgeInsets;
-      expect(paddingWithTitle.vertical, ScreenHelper.instance.horizontalPadding * 2);
+      expect(
+        paddingWithTitle.vertical,
+        ScreenHelper.instance.horizontalPadding * 2,
+      );
 
       // Close dialog
       await tester.tap(find.byIcon(Icons.close));
@@ -355,7 +437,8 @@ void main() {
                 onPressed: () {
                   showDialog(
                     context: context,
-                    builder: (context) => ClosableDialog(title: null, child: Text('Content')),
+                    builder: (context) =>
+                        ClosableDialog(title: null, child: Text('Content')),
                   );
                 },
                 child: const Text('Show Dialog 2'),
@@ -368,7 +451,14 @@ void main() {
       await tester.tap(find.text('Show Dialog 2'));
       await tester.pumpAndSettle();
 
-      final Container containerWithoutTitle = tester.widget(find.descendant(of: find.byType(Dialog), matching: find.byType(Container)).first);
+      final Container containerWithoutTitle = tester.widget(
+        find
+            .descendant(
+              of: find.byType(Dialog),
+              matching: find.byType(Container),
+            )
+            .first,
+      );
 
       final paddingWithoutTitle = containerWithoutTitle.padding as EdgeInsets;
       expect(paddingWithoutTitle.vertical, 40); // 20 * 2
@@ -378,7 +468,10 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue, brightness: Brightness.light),
+            colorScheme: ColorScheme.fromSeed(
+              seedColor: Colors.blue,
+              brightness: Brightness.light,
+            ),
           ),
           home: Scaffold(
             body: Builder(
@@ -386,7 +479,8 @@ void main() {
                 onPressed: () {
                   showDialog(
                     context: context,
-                    builder: (context) => ClosableDialog(child: Text('Content')),
+                    builder: (context) =>
+                        ClosableDialog(child: Text('Content')),
                   );
                 },
                 child: const Text('Show Dialog'),
@@ -413,7 +507,8 @@ void main() {
                 onPressed: () {
                   showDialog(
                     context: context,
-                    builder: (context) => ClosableDialog(child: Text('Content')),
+                    builder: (context) =>
+                        ClosableDialog(child: Text('Content')),
                   );
                 },
                 child: const Text('Show Dialog'),
@@ -440,7 +535,8 @@ void main() {
                 onPressed: () {
                   showDialog(
                     context: context,
-                    builder: (context) => ClosableDialog(child: Text('Content')),
+                    builder: (context) =>
+                        ClosableDialog(child: Text('Content')),
                   );
                 },
                 child: const Text('Show Dialog'),
@@ -457,10 +553,18 @@ void main() {
       expect(find.byType(Flexible), findsOneWidget);
 
       final flexible = tester.widget<Flexible>(find.byType(Flexible));
-      expect(find.descendant(of: find.byWidget(flexible), matching: find.text('Content')), findsOneWidget);
+      expect(
+        find.descendant(
+          of: find.byWidget(flexible),
+          matching: find.text('Content'),
+        ),
+        findsOneWidget,
+      );
     });
 
-    testWidgets('has correct spacing between elements', (WidgetTester tester) async {
+    testWidgets('has correct spacing between elements', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
@@ -471,7 +575,9 @@ void main() {
                     context: context,
                     builder: (context) => ClosableDialog(
                       title: 'Test Dialog',
-                      actions: [TextButton(onPressed: () {}, child: Text('OK'))],
+                      actions: [
+                        TextButton(onPressed: () {}, child: Text('OK')),
+                      ],
                       child: Text('Content'),
                     ),
                   );
