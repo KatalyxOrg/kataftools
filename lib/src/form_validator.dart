@@ -16,7 +16,7 @@ class FormValidator {
   static String? phoneValidator(PhoneNumber? value, {bool isRequired = false}) {
     if (isRequired && (value?.nsn.isEmpty ?? true)) return "";
 
-    if (value!.nsn.isNotEmpty && !value.isValid()) {
+    if (value != null && value.nsn.isNotEmpty && !value.isValid()) {
       return 'Veuillez entrer un numéro de téléphone valide.';
     }
 

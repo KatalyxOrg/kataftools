@@ -17,6 +17,9 @@ class ScreenHelper {
     } else if (width > breakpointTablet) {
       horizontalPadding = 24;
       isMobile = false;
+    } else {
+      horizontalPadding = 16;
+      isMobile = true;
     }
   }
 }
