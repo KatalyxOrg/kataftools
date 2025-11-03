@@ -7,9 +7,9 @@ void main() {
     Widget buildFormSection({String? title, List<Widget>? children, List<Widget> actions = const [], bool isSmall = false, double? screenWidth}) {
       Widget formSection = FormSection(
         title: title,
-        children: children ?? [const TextField(decoration: InputDecoration(labelText: 'Field 1')), const TextField(decoration: InputDecoration(labelText: 'Field 2'))],
         actions: actions,
         isSmall: isSmall,
+        children: children ?? [const TextField(decoration: InputDecoration(labelText: 'Field 1')), const TextField(decoration: InputDecoration(labelText: 'Field 2'))],
       );
 
       if (screenWidth != null) {

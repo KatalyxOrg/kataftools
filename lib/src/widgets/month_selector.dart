@@ -2,11 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class MonthSelector extends StatelessWidget {
-  const MonthSelector({
-    super.key,
-    required this.selectedMonth,
-    required this.onMonthSelected,
-  });
+  const MonthSelector({super.key, required this.selectedMonth, required this.onMonthSelected});
 
   final DateTime selectedMonth;
   final void Function(DateTime) onMonthSelected;
@@ -24,7 +20,7 @@ class MonthSelector extends StatelessWidget {
         ),
         Flexible(
           child: DropdownButtonFormField(
-            value: selectedMonth,
+            initialValue: selectedMonth,
             onChanged: (DateTime? newValue) {
               if (newValue != null) {
                 onMonthSelected(newValue);
