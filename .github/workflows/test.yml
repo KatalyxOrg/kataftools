@@ -53,6 +53,18 @@ jobs:
       - name: Run tests
         run: flutter test
 
+      - name: Run tests with JSON reporter
+        run: flutter test --reporter json > test-results.json || true
+
+      - name: Upload test results to Codecov
+        uses: codecov/test-results-action@v1
+        with:
+          files: ./test-results.json
+          fail_ci_if_error: false
+          verbose: true
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
   coverage:
     name: Coverage
     runs-on: ubuntu-latest
@@ -73,6 +85,9 @@ jobs:
 
       - name: Run tests with coverage
         run: flutter test --coverage
+
+      - name: Generate test results JSON
+        run: flutter test --reporter json > coverage/test-results.json || true
 
       - name: Check coverage threshold
         run: |
@@ -107,11 +122,27 @@ jobs:
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
+      - name: Upload test results to Codecov
+        uses: codecov/test-results-action@v1
+        with:
+          files: ./coverage/test-results.json
+          fail_ci_if_error: false
+          verbose: true
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
       - name: Upload coverage reports
         uses: actions/upload-artifact@v4
         with:
           name: coverage-report
           path: coverage/lcov.info
+          retention-days: 30
+
+      - name: Upload test results artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: coverage/test-results.json
           retention-days: 30
 
   test-results:
