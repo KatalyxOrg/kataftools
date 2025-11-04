@@ -1,7 +1,6 @@
 // Core utilities
 export 'src/utils.dart';
 export 'src/dates.dart';
-export 'src/permission.dart';
 export 'src/form_validator.dart';
 export 'src/serializers.dart';
 export 'src/screen_helper.dart';
