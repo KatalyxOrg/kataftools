@@ -25,6 +25,7 @@ export 'src/forms/image_input.dart';
 export 'src/forms/image_input_round.dart';
 export 'src/forms/document_input.dart';
 export 'src/forms/badges/checkbox_badge.dart';
+export 'src/forms/nationality_dropdown.dart';
 
 // Dialogs
 export 'src/dialogs/dialog_header.dart';
