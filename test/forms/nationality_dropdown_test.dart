@@ -6,19 +6,13 @@ import 'package:phone_form_field/phone_form_field.dart';
 void main() {
   group('NationalityDropdown', () {
     String fr(IsoCode c) => switch (c) {
-          IsoCode.FR => 'France',
-          IsoCode.US => 'United States',
-          IsoCode.DE => 'Germany',
-          _ => c.name,
-        };
+      IsoCode.FR => 'France',
+      IsoCode.US => 'United States',
+      IsoCode.DE => 'Germany',
+      _ => c.name,
+    };
 
-    Widget build({
-      IsoCode? value,
-      bool isRequired = false,
-      bool isEnabled = true,
-      bool shouldResetOnTap = true,
-      ValueChanged<IsoCode?>? onSelected,
-    }) {
+    Widget build({IsoCode? value, bool isRequired = false, bool isEnabled = true, bool shouldResetOnTap = true, ValueChanged<IsoCode?>? onSelected}) {
       return MaterialApp(
         home: Scaffold(
           body: NationalityDropdown(
@@ -84,12 +78,7 @@ void main() {
           home: Scaffold(
             body: Form(
               key: formKey,
-              child: NationalityDropdown(
-                label: 'Nationalité',
-                isRequired: true,
-                countries: const [IsoCode.FR, IsoCode.US],
-                resolveName: fr,
-              ),
+              child: NationalityDropdown(label: 'Nationalité', isRequired: true, countries: const [IsoCode.FR, IsoCode.US], resolveName: fr),
             ),
           ),
         ),
