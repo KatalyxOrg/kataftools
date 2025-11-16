@@ -3,15 +3,10 @@ import 'package:kataftools/src/forms/form_large_field.dart';
 import 'package:kataftools/src/screen_helper.dart';
 
 class FormSection extends StatefulWidget {
-  const FormSection({
-    super.key,
-    this.title,
-    required this.children,
-    this.actions = const [],
-    this.isSmall = false,
-  });
+  const FormSection({super.key, this.title, this.titleStyle, required this.children, this.actions = const [], this.isSmall = false});
 
   final String? title;
+  final TextStyle? titleStyle;
   final bool isSmall;
 
   final List<Widget> children;
@@ -50,11 +45,9 @@ class _FormSectionState extends State<FormSection> {
                   Expanded(
                     child: Text(
                       widget.title!,
-                      style: widget.isSmall
-                          ? Theme.of(context).textTheme.titleMedium!.copyWith(
-                              fontWeight: FontWeight.bold,
-                            )
-                          : Theme.of(context).textTheme.displaySmall,
+                      style:
+                          widget.titleStyle ??
+                          (widget.isSmall ? Theme.of(context).textTheme.titleMedium!.copyWith(fontWeight: FontWeight.bold) : Theme.of(context).textTheme.displaySmall),
                     ),
                   ),
                   ...widget.actions,
@@ -78,64 +71,24 @@ class _FormSectionState extends State<FormSection> {
                     i--;
                     children.add(
                       Flex(
-                        direction:
-                            constraints.maxWidth > ScreenHelper.breakpointTablet
-                            ? Axis.horizontal
-                            : Axis.vertical,
-                        crossAxisAlignment:
-                            constraints.maxWidth > ScreenHelper.breakpointTablet
-                            ? CrossAxisAlignment.start
-                            : CrossAxisAlignment.stretch,
+                        direction: constraints.maxWidth > ScreenHelper.breakpointTablet ? Axis.horizontal : Axis.vertical,
+                        crossAxisAlignment: constraints.maxWidth > ScreenHelper.breakpointTablet ? CrossAxisAlignment.start : CrossAxisAlignment.stretch,
                         children: [
-                          Expanded(
-                            flex:
-                                constraints.maxWidth >
-                                    ScreenHelper.breakpointTablet
-                                ? 1
-                                : 0,
-                            child: _children[i + 1],
-                          ),
+                          Expanded(flex: constraints.maxWidth > ScreenHelper.breakpointTablet ? 1 : 0, child: _children[i + 1]),
                           const SizedBox(width: 20, height: 20),
-                          Expanded(
-                            flex:
-                                constraints.maxWidth >
-                                    ScreenHelper.breakpointTablet
-                                ? 1
-                                : 0,
-                            child: Container(),
-                          ),
+                          Expanded(flex: constraints.maxWidth > ScreenHelper.breakpointTablet ? 1 : 0, child: Container()),
                         ],
                       ),
                     );
                   } else {
                     children.add(
                       Flex(
-                        direction:
-                            constraints.maxWidth > ScreenHelper.breakpointTablet
-                            ? Axis.horizontal
-                            : Axis.vertical,
-                        crossAxisAlignment:
-                            constraints.maxWidth > ScreenHelper.breakpointTablet
-                            ? CrossAxisAlignment.start
-                            : CrossAxisAlignment.stretch,
+                        direction: constraints.maxWidth > ScreenHelper.breakpointTablet ? Axis.horizontal : Axis.vertical,
+                        crossAxisAlignment: constraints.maxWidth > ScreenHelper.breakpointTablet ? CrossAxisAlignment.start : CrossAxisAlignment.stretch,
                         children: [
-                          Expanded(
-                            flex:
-                                constraints.maxWidth >
-                                    ScreenHelper.breakpointTablet
-                                ? 1
-                                : 0,
-                            child: _children[i],
-                          ),
+                          Expanded(flex: constraints.maxWidth > ScreenHelper.breakpointTablet ? 1 : 0, child: _children[i]),
                           const SizedBox(width: 20, height: 20),
-                          Expanded(
-                            flex:
-                                constraints.maxWidth >
-                                    ScreenHelper.breakpointTablet
-                                ? 1
-                                : 0,
-                            child: _children[i + 1],
-                          ),
+                          Expanded(flex: constraints.maxWidth > ScreenHelper.breakpointTablet ? 1 : 0, child: _children[i + 1]),
                         ],
                       ),
                     );
@@ -145,11 +98,7 @@ class _FormSectionState extends State<FormSection> {
                   i += 2;
                 }
 
-                return Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: children,
-                );
+                return Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.stretch, children: children);
               },
             ),
           ],
